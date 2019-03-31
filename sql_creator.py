@@ -1,10 +1,10 @@
 import os
-from sqlalchemy import Column, Integer, String, MetaData, create_engine, Table, ForeignKey, Numeric, DateTime
+from sqlalchemy import Column, Integer, String, MetaData, create_engine, Table, ForeignKey, Numeric, DateTime, Float
 from duid_meta import CONFIG
 
 PATH = os.path.join(CONFIG['local_settings']['test_folder'],"testdb.db")
 SQLITE = create_engine("sqlite:///{0}".format(PATH))
-ROOT = create_engine("mysql://{username}:{password}@{hostname}/nemweb?unix_socket={socket}".format(**CONFIG['root_sql']))
+ROOT = create_engine("mysql://{username}:{password}@{hostname}/meta?unix_socket={socket}".format(**CONFIG['root_sql']))
 
 def key_table(tablename, fieldname, metadata, str_length=10):
     return Table(tablename, metadata,
@@ -33,12 +33,14 @@ def create_test_table(engine=SQLITE):
 
     state = key_table('STATE', 'STATE', metadata)
     state.append_column(Column('REGIONID', Integer, ForeignKey("REGION.ID")))
+    state.append_column(Column('STATENAME', String(30)))
 
     station = id_table('STATION', metadata)
-    station.append_column(Column('STATIONNAME', String(80), nullable=False, unique=True))
+    station.append_column(Column('STATIONNAME', String(80), nullable=False))
     station.append_column(Column('STATE', Integer, ForeignKey("STATE.ID")))
-    station.append_column(Column('POSTCODE', Integer, ForeignKey("STATE.ID")))
-
+    station.append_column(Column('POSTCODE', Integer))
+    station.append_column(Column('LATITUDE', Float))
+    station.append_column(Column('LONGITUDE', Float))
 
     participant = id_table('PARTICIPANT', metadata)
     participant.append_column(Column('NAME', String(80), nullable=False, unique=True))
