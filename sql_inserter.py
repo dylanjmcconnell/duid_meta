@@ -45,9 +45,9 @@ def load_latlon():
     dx = df[['STATIONID', 'Latitude', 'Longitude']].drop_duplicates()
     return dx.rename(columns={'Latitude': "LATITUDE", 'Longitude': "LONGITUDE"})
 
-def simple_tables(engine=SQLITE):
-    start_type = ['FAST', 'NOT DISPATCHED', 'SLOW', pd.np.nan]
-    tables = {"DISPATCHTYPE": ['GENERATOR', 'LOAD'],
+def simple_tables(engine=SQLITE):    
+    tables = {"STARTTYPE": ['FAST', 'NOT DISPATCHED', 'SLOW', pd.np.nan],
+              "DISPATCHTYPE": ['GENERATOR', 'LOAD'],
               "SCHEDULE_TYPE": ['NON-SCHEDULED', 'SCHEDULED', 'SEMI-SCHEDULED']}
     
     for table in tables:

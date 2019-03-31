@@ -6,10 +6,10 @@ PATH = os.path.join(CONFIG['local_settings']['test_folder'],"testdb.db")
 SQLITE = create_engine("sqlite:///{0}".format(PATH))
 ROOT = create_engine("mysql://{username}:{password}@{hostname}/meta?unix_socket={socket}".format(**CONFIG['root_sql']))
 
-def key_table(tablename, fieldname, metadata, str_length=10):
+def key_table(tablename, fieldname, metadata, str_length=10, allow_null=False):
     return Table(tablename, metadata,
            Column('ID', Integer, primary_key=True),
-           Column(fieldname, String(str_length), nullable=False, unique=True))
+           Column(fieldname, String(str_length), nullable=allow_null, unique=True))
 
 def id_table(tablename, metadata):
     return key_table(tablename, tablename+"ID", metadata)
@@ -23,14 +23,15 @@ def create_test_table(engine=SQLITE):
     for tablename in ['CONNECTIONPOINT','PARTICIPANTCLASS', 'REGION', 'DUID']:
         id_table(tablename, metadata)
 
-    for tablename, str_length in [['STARTTYPE', 20],
-                                  ['DISPATCHTYPE', 10],
+    for tablename, str_length in [['DISPATCHTYPE', 10],
                                   ['UNITTYPE', 20],
                                   ['STATUS', 20],
                                   ['SCHEDULE_TYPE', 20],
                                   ['CO2E_ENERGY_SOURCE', 30],
                                   ['CO2E_DATA_SOURCE', 20]]:
         key_table(tablename, tablename, metadata, str_length=str_length)
+    
+    key_table('STARTTYPE', 'STARTTYPE', metadata, str_length=20, allow_null=True)
 
     state = key_table('STATE', 'STATE', metadata)
     state.append_column(Column('REGIONID', Integer, ForeignKey("REGION.ID")))
