@@ -44,3 +44,12 @@ def load_latlon():
     df = pd.read_csv(CONFIG['local_settings']['latlon_data'])
     dx = df[['STATIONID', 'Latitude', 'Longitude']].drop_duplicates()
     return dx.rename(columns={'Latitude': "LATITUDE", 'Longitude': "LONGITUDE"})
+
+def simple_tables(engine=SQLITE):
+    start_type = ['FAST', 'NOT DISPATCHED', 'SLOW', pd.np.nan]
+    tables = {"DISPATCHTYPE": ['GENERATOR', 'LOAD'],
+              "SCHEDULE_TYPE": ['NON-SCHEDULED', 'SCHEDULED', 'SEMI-SCHEDULED']}
+    
+    for table in tables:
+        df = pd.DataFrame(tables[table], columns = [table])
+        df.to_sql(table, con=engine, index=False, if_exists='append')

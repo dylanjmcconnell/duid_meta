@@ -20,12 +20,13 @@ def create_test_table(engine=SQLITE):
 
     metadata = MetaData()
 
-    for tablename in ['CONNECTIONPOINT','PARTICIPANTCLASS', 'REGION']:
+    for tablename in ['CONNECTIONPOINT','PARTICIPANTCLASS', 'REGION', 'DUID']:
         id_table(tablename, metadata)
 
     for tablename, str_length in [['STARTTYPE', 20],
-                                  ['DUID', 10],
                                   ['DISPATCHTYPE', 10],
+                                  ['UNITTYPE', 20],
+                                  ['STATUS', 20],
                                   ['SCHEDULE_TYPE', 20],
                                   ['CO2E_ENERGY_SOURCE', 30],
                                   ['CO2E_DATA_SOURCE', 20]]:
