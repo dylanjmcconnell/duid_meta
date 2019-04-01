@@ -1,0 +1,73 @@
+Project,Owner,Unit Id,Technology Type,Fuel Type,Unit Status,Nameplate Capacity (MW),Dispatch Type,Full Commercial Use Date,Source,summary_status,nameplatecapacity_mw_max,capacity_empty,region,summary_bucket
+Beryl Solar Farm,FS NSW Project No 1 AT Pty Ltd as trustee of FS NSW Project No 1 Asset Trust,Inverters 1-60,PV-Tracking Flat panel,Solar,Committed,98.4,SS,Winter 2019,,Committed,98.4,No,NSW,Solar
+Bodangora Wind Farm,Bodangora Wind Farm Pty Ltd,Units 1-33,Wind - Onshore,Wind,Committed,113.19,SS,Summer 2018-19,,Committed,113.19,No,NSW,Wind
+Bomen Solar Farm,Renew Estate,Units 1-22,PV-Tracking Flat panel,Solar,Committed,120,SS,Feb-20,https://www.bomensolarfarm.com.au/ ,Committed,120,No,NSW,Solar
+Crookwell 2 Wind Farm,Crookwell Development Pty Ltd,Units 1-28,Wind - Onshore,Wind,Committed,91,SS,Summer 2018-19,,Committed,91,No,NSW,Wind
+Crudine Ridge Wind Farm,CRWF Nominees Pty Ltd,Jan-37,Wind - Onshore,Wind,Com*,135,SS,"Summer 2019-20
+",https://www.crudineridgewindfarm.com.au/,Committed,135,No,NSW,Wind
+Darlington Point Solar Farm,Darlington Point Solar Farm Pty Ltd,1-108,PV-Tracking Flat panel,Solar,Committed,275,SS,Nov-19,http://edifyenergy.com/projects/darlingtonpoint/,Committed,275,No,NSW,Solar
+Finley Solar Farm,Finley Solar Farm Pty Ltd as trustee of the Finley Solar Trust,1,PV-Tracking Flat panel,Solar,Committed,133,SS,Oct-19,,Committed,133,No,NSW,Solar
+Limondale Solar Plant 1,Innogy,1-100,PV-Tracking Flat panel,Solar,Committed,220,SS,Apr-20,https://iam.innogy.com/en/about-innogy/innogy-innovation-technology/renewables/solar-energy/limondale-solar-plant,Committed,220,No,NSW,Solar
+Limondale Solar Plant 2,Innogy,Jan-14,PV-Tracking Flat panel,Solar,Committed,29,SS,Apr-19,https://iam.innogy.com/en/about-innogy/innogy-innovation-technology/renewables/solar-energy/limondale-solar-plant,Committed,29,No,NSW,Solar
+Nevertire Solar Farm,Elliott Nevertire Solar Pty Ltd,Jan-53,PV-Tracking Flat panel,Solar,Com*,105,SS,Jul-19,"http://nevertiresolarfarm.com.au/ 
+",Committed,105,No,NSW,Solar
+Sunraysia Solar Farm,John Laing/Maoneng Group,Sunraysia Solar Farm,PV-Tracking Flat panel,Solar,Committed,200,SS,Dec-19,http://sunraysiasolarfarm.com.au/,Committed,200,No,NSW,Solar
+Brigalow Solar Farm,Impact Investment Group,1,PV-Tracking Flat panel,Solar,Com*,34.5,SS,Mar-20,https://www.impact-group.com.au/assets/brigalow-solar-farm/,Committed,34.5,No,QLD,Solar
+Childers Solar Farm,Childers Solar Pty Ltd,1,PV-Tracking Flat panel,Solar,Com*,56,SS,Feb-19,,Committed,56,No,QLD,Solar
+Clermont Solar Farm,Clermont Asset Co Pty Ltd as Trustee for Clerrmont Solar Unit Trust,Clermont Solar Farm 1,PV panels,Solar,Committed,92.5,SS,Oct-18,https://wirsol.com.au/portfolio/clermont-solar-farm/,Committed,92.5,No,QLD,Solar
+Collinsville PV,Ratch Australia,All Units,PV panels,Solar,Committed,42.5,SS,Aug-18,,Committed,42.5,No,QLD,Solar
+Coopers Gap Wind Farm,PARF Company 6 Pty Limited,"1 – 91 x 3.63 MW, 92 – 123 x 3.83 MW",Wind - Onshore,Wind,Com*,453,SS,Aug-19," https://www.agl.com.au/about-agl/how-we-source-energy/coopers-gap-wind-farm
+",Committed,453,No,QLD,Wind
+Daydream Solar Farm,Daydream Solar Farm,1,PV panels,Solar,Committed,167.5,SS,"Early 2019
+", ,Committed,167.5,No,QLD,Solar
+Emerald Solar Park,Lighthouse Infrastructure Management Limited,Jan-32,PV-Tracking Flat panel,Solar,Com*,72,SS,Dec-18,,Committed,72,No,QLD,Solar
+Haughton Solar Farm,Pacific Hydro Haughton Solar Farm Pty Ltd,Units 1-81,PV-Tracking Flat panel,Solar,Committed,100,SS,"Summer 2018-19
+",www.pacifichydro.com.au,Committed,100,No,QLD,Solar
+Hayman Solar Farm,Hayman Solar Farm,1,PV panels,Solar,Committed,57.75,SS,"Early 2019
+",http://edifyenergy.com/projects/hayman-solar-farm/,Committed,57.75,No,QLD,Solar
+Hughenden Sun Farm,BayWa r.e.,Units 1-18,PV-Tracking Flat panel,Solar,Committed,18,NS,May-19,,Committed,18,No,QLD,Solar
+Kennedy Energy Park - Phase 1 - Solar,Windlab / Eurus,6,PV-Tracking Flat panel,Solar,Com*,15,SS,Apr-19,https://kennedyenergypark.com.au/,Committed,15,No,QLD,Solar
+Kennedy Energy Park - Phase 1 - Storage,Windlab/Eurus,1,Battery Storage,,Com*,2 MW / 4 MWh,SS,Apr-19,https://kennedyenergypark.com.au/,Committed,2,No,QLD,Battery Storage
+Kennedy Energy Park - Phase 1 - Wind,Windlab / Eurus,12,Wind - Onshore,Wind,Com*,43.2,SS,Apr-19,https://kennedyenergypark.com.au/,Committed,43.2,No,QLD,Wind
+Lilyvale Solar Farm,Lilyvale Asset Co Pty Ltd ATF Lilyvale Asset Trust,Jan-69,PV-Tracking Flat panel,Solar,Committed,100,SS,Oct-18,www.lilyvalesolarfarm.com.au,Committed,100,No,QLD,Solar
+Mount Emerald,Ratch Australia,Units 1-53,Wind - Onshore,Wind,Committed,180.5,SS,Oct-18,,Committed,180.5,No,QLD,Wind
+Oakey 2 Solar Farm,RE Oakey Pty Ltd,Oakey 2,PV panels,Solar,Committed,55,SS,Mar-19,,Committed,55,No,QLD,Solar
+Oakey Solar Farm,Oakey1 Asset Co Pty Ltd,1,PV panels,Solar,Com*,25,SS,Mar-19,,Committed,25,No,QLD,Solar
+Rugby Run Solar Farm,Adani Rugby Run Pty Ltd,1,PV-Tracking Flat panel,Solar,Com*,65,SS,Mar-19,https://www.adaniaustralia.com/en/projects-businesses/renewables/renewablesrugby,Committed,65,No,QLD,Solar
+Susan River Solar Farm,Susan River Solar Pty Ltd,1,PV-Tracking Flat panel,Solar,Com*,75,SS,Feb-19,,Committed,75,No,QLD,Solar
+Tableland Mill (expansion),MSF Sugar,2,Steam Sub Critical,Bagasse,Com*,24,NS,Oct-18,www.msfsugar.com.au,Committed,24,No,QLD,Biomass
+Teebar Solar One,Teebar Clean Energy Pty Ltd,Jan-21,PV panels,Solar,Com*,52.5,SS,Jul-19,http://teebarcleanenergy.com.au/,Committed,52.5,No,QLD,Solar
+Warwick Solar Farm,The University of Queensland,Units 1-16,PV-Tracking Flat panel,Solar,Committed,64.2,SS,Feb-20,https://sustainability.uq.edu.au/warwick-solar-farm,Committed,64.2,No,QLD,Solar
+Yarranlea Solar,Risen Energy Australia,1,PV panels,Solar,Com*,102.5,SS,Aug-19,http://www.yarranleasolar.com.au/,Committed,102.5,No,QLD,Solar
+Barker Inlet Power Station,AGL,1-Dec,Spark Ignition  Reciprocating Engine,Natural Gas Pipeline,Committed,210,S,Aug-19,,Committed,210,No,SA,Gas other
+Bungala Two Solar Farm,Enel Green Power,Bungala Solar Two,PV-Tracking Flat panel,Solar,Committed,110,SS,Jan-19,,Committed,110,No,SA,Solar
+Lake Bonney Battery Energy Storage,Infigen Energy,1,Battery Storage,,Com*,25 MW / 52 MWh,S,May-19,,Committed,25,No,SA,Battery Storage
+Lincoln Gap Wind Farm - stage 1,Lincoln Gap Wind Farm Pty Ltd,LGWT01-35,Wind - Onshore,Wind,Committed,126,SS,Apr-19,http://lincolngapwindfarm.com.au/about-the-project/,Committed,126,No,SA,Wind
+Tailem Bend - Solar,Vena Energy,1,PV panels,Solar,Committed,108,SS,"Winter 2019
+",,Committed,108,No,SA,Solar
+Willogoleche Wind Farm,Willogoleche Power Pty Ltd,Station,Wind - Onshore,Wind,Committed,119.4,SS,Mar-19,,Committed,119.4,No,SA,Wind
+Granville Harbour Wind Farm,Granville Harbour Operations Pty Ltd as trustee for Granville Harbour Operations Trust,Jan-31,Wind - Onshore,Wind,Com*,111.6,SS,"Summer 2019-20
+",http://www.westcoastwind.com.au/,Committed,111.6,No,TAS,Wind
+Wild Cattle Hill Wind Farm,Wild Cattle Hill Pty Ltd,Jan-49,Wind - Onshore,Wind,Com*,144,SS,Dec-19,,Committed,144,No,TAS,Wind
+Ballarat Energy Storage System,AusNet Services,1,Battery Storage,,Com*,30 MW / 30 MWh,S,Summer 2018-19,https://www.spotless.com/clients/ballarat-battery-energy-storage-system/,Committed,30,No,VIC,Battery Storage
+Bannerton Solar Park,Foresight Solar Australia Pty Ltd,1,PV panels,Solar,Committed,88,SS,Sep-18,"http://www.bannertonsolarfarm.com.au/
+www.foresightgroup.eu",Committed,88,No,VIC,Solar
+Bulgana Green Power Hub - BESS,Bulgana Wind Farm Pty Ltd,1,Battery Storage,,Com*,20 MW / 34 MWh,SS,Aug-19,https://bulganawindfarm.com.au/,Committed,20,No,VIC,Battery Storage
+Bulgana Green Power Hub - Wind Farm,Bulgana Wind Farm Pty Ltd,Jan-56,Wind - Onshore,Wind,Com*,194,SS,May-19,https://bulganawindfarm.com.au/,Committed,194,No,VIC,Wind
+Cherry Tree Wind Farm,Cherry Tree Wind Farm Pty Limited A.T.F. Cherry Tree Project Trust,Units 1-16,Wind - Onshore,Wind,Com*,57.6,SS,May-20,,Committed,57.6,No,VIC,Wind
+Cohuna Solar Farm,Cohuna Solar Farm Pty. Ltd,TBA,PV-Tracking Flat panel,Solar,Committed,27.27,SS,Aug-19,https://www.enelgreenpower.com/media/press/d/2018/09/enel-green-power-awarded-support-agreement-for-34-mw-of-new-solar-capacity-in-australian-state-renewable-auction ,Committed,27.27,No,VIC,Solar
+Crowlands Wind Farm,Pacific Hydro Crowlands Pty Ltd,Units 1-39,Wind - Onshore,Wind,Committed,79.95,SS,Winter 2019,www.pacifichydro.com.au,Committed,79.95,No,VIC,Wind
+Dundonnell Wind Farm,Tilt Renewables,Jan-80,Wind - Onshore,Wind,Com*,336,SS,Jul-20,https://www.tiltrenewables.com/assets-and-projects/Dundonnell-Wind-Farm/,Committed,336,No,VIC,Wind
+Karadoc Solar Farm,Overland Sun Farming Pty Ltd,Solar Panels,PV-Tracking Flat panel,Solar,Com*,90,SS,Summer 2018-19,,Committed,90,No,VIC,Solar
+Kiamal Solar Farm - Stage 1,Total Eren S.A.,Units 1 - 150,PV-Tracking Flat panel,Solar,Com*,200,SS,Winter 2019,,Committed,200,No,VIC,Solar
+Lal Lal Wind Energy Facility - Elaine end,Northleaf /InfraRed/Macquarie Capital,39-60,Wind - Onshore,Wind,Com*,83.6,SS,Jul-19,,Committed,83.6,No,VIC,Wind
+Lal Lal Wind Energy Facility - Yendon end,Northleaf /InfraRed/Macquarie Capital,Jan-38,Wind - Onshore,Wind,Com*,144.4,SS,Mar-19,"http://www.lallalwindfarms.com.au/
+",Committed,144.4,No,VIC,Wind
+Moorabool Wind Farm,Goldwind,Units 1-104,Wind - Onshore,Wind,Committed,320,SS,Sep-19,http://mooraboolwindfarm.com/,Committed,320,No,VIC,Wind
+Mt Gellibrand,ACCIONA Energy,"1-22
+23-44",Wind - Onshore,Wind,Committed,132,SS,Winter 2018,,Committed,132,No,VIC,Wind
+Murra Warra Wind Farm - stage 1,Murra Warra Project Co Pty Ltd,Jan-61,Wind - Onshore,Wind,Committed,225.7,SS,Winter 2019,http://www.murrawarra-windfarm.com/,Committed,225.7,No,VIC,Wind
+Numurkah Solar Farm,Neoen,Solar Panels,PV panels,Solar,Committed,100,SS,May-19,https://numurkahsolarfarm.com.au/,Committed,100,No,VIC,Solar
+Stockyard Hill,Goldwind,1-149,Wind - Onshore,Wind,Committed,532,SS,Dec-19,,Committed,532,No,VIC,Wind
+Wemen Solar Farm,Wemen Asset Co Pty Ltd as Trustee to Wemen Solar Unit Trust,Wemen Solar Farm 1 - 39,PV panels,Solar,Committed,87.75,SS,Oct-18,https://wirsol.com.au/portfolio/wemen-solar-farm/,Committed,87.75,No,VIC,Solar
+Yatpool Solar Farm,BayWa r.e,Solar Panels,PV-Tracking Flat panel,Solar,Com*,81,SS,Winter 2019,http://www.baywa-re.com.au/en/projects/yatpool/,Committed,81,No,VIC,Solar
