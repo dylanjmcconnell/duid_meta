@@ -7,7 +7,7 @@ PATH = os.path.join(CONFIG['local_settings']['test_folder'],"testdb.db")
 SQLITE = create_engine("sqlite:///{0}".format(PATH))
 PYTHON = create_engine("mysql://{username}:{password}@{hostname}/meta?unix_socket={socket}".format(**CONFIG['python_sql']))
 
-def populate_regionid(engine=SQLITE):
+def populate_regions(engine=SQLITE):
     mapping = {1: 'NSW1', 2 : 'QLD1', 3:'SA1',  4 : 'TAS1', 5:'VIC1'}
     df = pd.DataFrame.from_dict(mapping, orient="index")
     df.rename(columns={0: "REGIONID"},inplace=True)
@@ -34,11 +34,21 @@ def populate_stations(engine=SQLITE):
     for string in ['COOMA', 'BRISBANE', 'ADELAIDE', 'PORTLAND']:
         df.loc[df.POSTCODE==string, "POSTCODE"] = pd.np.nan
 
-    dx = df[['STATIONID', 'STATIONNAME', 'STATE', 'POSTCODE']]
+    dx = df[['STATIONID', 'STATIONNAME', 'STATE', 'POSTCODE']].copy()
+    dx.sort_values("STATIONID", inplace=True)
     df_latlon =  load_latlon()
 
     df_comb = dx.merge(df_latlon, on="STATIONID", how="left")
     df_comb.to_sql("STATION", con=engine, index=False, if_exists='append')
+
+def populate_participants(engine=SQLITE):
+    participant_keys = pd.read_sql("SELECT PARTICIPANTCLASSID, ID FROM PARTICIPANTCLASS", con=engine, index_col="PARTICIPANTCLASSID")
+    key_map = participant_keys.to_dict(orient='dict')['ID']
+
+    df = mmsds_reader.download(dataset="participant", y=2019, m=2)
+    df.PARTICIPANTCLASSID = df.PARTICIPANTCLASSID.apply(lambda x: key_map[x])
+    dx = df[['PARTICIPANTID', 'PARTICIPANTCLASSID', 'NAME']]
+    dx.to_sql("PARTICIPANT", con=engine, index=False, if_exists='append')
 
 def populate_connection_points(engine=SQLITE):
     df = mmsds_reader.download(dataset="dudetail")
@@ -51,7 +61,7 @@ def load_latlon():
     dx = df[['STATIONID', 'Latitude', 'Longitude']].drop_duplicates()
     return dx.rename(columns={'Latitude': "LATITUDE", 'Longitude': "LONGITUDE"})
 
-def simple_tables(engine=SQLITE):    
+def populate_simple_tables(engine=SQLITE):    
     tables = {"STARTTYPE": ['FAST', 'NOT DISPATCHED', 'SLOW', pd.np.nan],
               "DISPATCHTYPE": ['GENERATOR', 'LOAD'],
               "SCHEDULE_TYPE": ['NON-SCHEDULED', 'SCHEDULED', 'SEMI-SCHEDULED'],
@@ -73,3 +83,12 @@ def simple_tables(engine=SQLITE):
 
     df = pd.DataFrame(['MARKET PARTICIPANT', 'SPECIAL PARTICIPANT', 'POOL PARTICIPANT','NONMARKET'], columns = ["PARTICIPANTCLASSID"])
     df.to_sql("PARTICIPANTCLASS", con=engine, index=False, if_exists='append')
+
+def make_all(engine=SQLITE):
+    populate_simple_tables(engine=engine)
+    populate_regions(engine=engine)
+    populate_states(engine=engine)
+    populate_connection_points(engine=engine)
+    populate_participants(engine=engine)
+    populate_stations(engine=engine)
+
