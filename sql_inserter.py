@@ -48,7 +48,18 @@ def load_latlon():
 def simple_tables(engine=SQLITE):    
     tables = {"STARTTYPE": ['FAST', 'NOT DISPATCHED', 'SLOW', pd.np.nan],
               "DISPATCHTYPE": ['GENERATOR', 'LOAD'],
-              "SCHEDULE_TYPE": ['NON-SCHEDULED', 'SCHEDULED', 'SEMI-SCHEDULED']}
+              "SCHEDULE_TYPE": ['NON-SCHEDULED', 'SCHEDULED', 'SEMI-SCHEDULED'],
+              "STATUS" : ['COMMISSIONED', 'DECOMMISSIONED'],
+              "CO2E_ENERGY_SOURCE" : ['Black coal', 'Brown coal', 'Hydro', pd.np.nan, 'Natural Gas (Pipeline)',
+                                     'Landfill biogas methane', 'Bagasse', 'Coal seam methane', 'Wind',
+                                     'Diesel oil', 'Solar', 'Primary solid biomass fuels',
+                                     'Coal mine waste gas', 'Battery Storage', 'Other Biofuels',
+                                     'Kerosene - non aviation', 'Other solid fossil fuels',
+                                     'Biomass and industrial materials'],
+              "CO2E_DATA_SOURCE" :   ['NTNDP 2011', 'NTNDP 2014', 'NTNDP 2016', pd.np.nan,
+                                     'Estimate - NGA 2016', 'Estimate - NGA 2015', 'Estimated',
+                                     'Estimate - Other', 'Estimate - NGA 2012', 'Estimate - NGA 2014',
+                                     'Estimate - NGA 2011', 'NTNDP 2015', 'Estimate - NGA 2013']}
     
     for table in tables:
         df = pd.DataFrame(tables[table], columns = [table])

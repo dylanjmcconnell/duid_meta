@@ -23,15 +23,15 @@ def create_test_table(engine=SQLITE):
     for tablename in ['CONNECTIONPOINT','PARTICIPANTCLASS', 'REGION', 'DUID']:
         id_table(tablename, metadata)
 
+    #('UNITTYPE' same as DISPATCH_TYPE)
     for tablename, str_length in [['DISPATCHTYPE', 10],
-                                  ['UNITTYPE', 20],
                                   ['STATUS', 20],
-                                  ['SCHEDULE_TYPE', 20],
-                                  ['CO2E_ENERGY_SOURCE', 30],
-                                  ['CO2E_DATA_SOURCE', 20]]:
+                                  ['SCHEDULE_TYPE', 20]]:
         key_table(tablename, tablename, metadata, str_length=str_length)
     
     key_table('STARTTYPE', 'STARTTYPE', metadata, str_length=20, allow_null=True)
+    key_table('CO2E_ENERGY_SOURCE', 'CO2E_ENERGY_SOURCE', metadata, str_length=20, allow_null=True)
+    key_table('CO2E_DATA_SOURCE', 'CO2E_DATA_SOURCE', metadata, str_length=20, allow_null=True)
 
     state = key_table('STATE', 'STATE', metadata)
     state.append_column(Column('REGIONID', Integer, ForeignKey("REGION.ID")))
