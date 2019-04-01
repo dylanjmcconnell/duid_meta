@@ -6,6 +6,19 @@ PATH = os.path.join(CONFIG['local_settings']['test_folder'],"testdb.db")
 SQLITE = create_engine("sqlite:///{0}".format(PATH))
 ROOT = create_engine("mysql://{username}:{password}@{hostname}/meta?unix_socket={socket}".format(**CONFIG['root_sql']))
 
+def drop_tables(schema="meta"):
+    with ROOT.connect() as conn:
+        conn.execute("USE {0}".format(schema))
+        conn.execute("SET FOREIGN_KEY_CHECKS=0")
+
+        query = conn.execute("SHOW TABLES")
+        tables = query.fetchall()
+
+        for table, in tables:
+            conn.execute("DROP TABLE {0}".format(table))
+
+        conn.execute("SET FOREIGN_KEY_CHECKS=1")
+
 def key_table(tablename, fieldname, metadata, str_length=10, allow_null=False):
     return Table(tablename, metadata,
            Column('ID', Integer, primary_key=True),
@@ -20,8 +33,10 @@ def create_test_table(engine=SQLITE):
 
     metadata = MetaData()
 
-    for tablename in ['CONNECTIONPOINT','PARTICIPANTCLASS', 'REGION', 'DUID']:
-        id_table(tablename, metadata)
+    for tablename in ['CONNECTIONPOINT', 'REGION', 'DUID']:
+            id_table(tablename, metadata)
+
+    key_table('PARTICIPANTCLASS', 'PARTICIPANTCLASSID', metadata, str_length=20)
 
     #('UNITTYPE' same as DISPATCH_TYPE)
     for tablename, str_length in [['DISPATCHTYPE', 10],
@@ -30,7 +45,7 @@ def create_test_table(engine=SQLITE):
         key_table(tablename, tablename, metadata, str_length=str_length)
     
     key_table('STARTTYPE', 'STARTTYPE', metadata, str_length=20, allow_null=True)
-    key_table('CO2E_ENERGY_SOURCE', 'CO2E_ENERGY_SOURCE', metadata, str_length=20, allow_null=True)
+    key_table('CO2E_ENERGY_SOURCE', 'CO2E_ENERGY_SOURCE', metadata, str_length=50, allow_null=True)
     key_table('CO2E_DATA_SOURCE', 'CO2E_DATA_SOURCE', metadata, str_length=20, allow_null=True)
 
     state = key_table('STATE', 'STATE', metadata)
