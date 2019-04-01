@@ -40,6 +40,12 @@ def populate_stations(engine=SQLITE):
     df_comb = dx.merge(df_latlon, on="STATIONID", how="left")
     df_comb.to_sql("STATION", con=engine, index=False, if_exists='append')
 
+def populate_connection_points(engine=SQLITE):
+    df = mmsds_reader.download(dataset="dudetail")
+    df_conn = df.CONNECTIONPOINTID.copy().drop_duplicates()
+    df_conn.sort_values(inplace=True)
+    df_conn.to_sql("CONNECTIONPOINT", con=engine, index=False, if_exists='append')
+    
 def load_latlon():
     df = pd.read_csv(CONFIG['local_settings']['latlon_data'])
     dx = df[['STATIONID', 'Latitude', 'Longitude']].drop_duplicates()
