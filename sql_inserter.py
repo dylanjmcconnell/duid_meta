@@ -45,7 +45,7 @@ def populate_connection_points(engine=SQLITE):
     df_conn = df.CONNECTIONPOINTID.copy().drop_duplicates()
     df_conn.sort_values(inplace=True)
     df_conn.to_sql("CONNECTIONPOINT", con=engine, index=False, if_exists='append')
-    
+
 def load_latlon():
     df = pd.read_csv(CONFIG['local_settings']['latlon_data'])
     dx = df[['STATIONID', 'Latitude', 'Longitude']].drop_duplicates()
@@ -66,7 +66,10 @@ def simple_tables(engine=SQLITE):
                                      'Estimate - NGA 2016', 'Estimate - NGA 2015', 'Estimated',
                                      'Estimate - Other', 'Estimate - NGA 2012', 'Estimate - NGA 2014',
                                      'Estimate - NGA 2011', 'NTNDP 2015', 'Estimate - NGA 2013']}
-    
+
     for table in tables:
         df = pd.DataFrame(tables[table], columns = [table])
         df.to_sql(table, con=engine, index=False, if_exists='append')
+
+    df = pd.DataFrame(['MARKET PARTICIPANT', 'SPECIAL PARTICIPANT', 'POOL PARTICIPANT','NONMARKET'], columns = ["PARTICIPANTCLASSID"])
+    df.to_sql("PARTICIPANTCLASS", con=engine, index=False, if_exists='append')
