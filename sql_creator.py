@@ -45,7 +45,7 @@ def create_test_table(engine=SQLITE):
     station.append_column(Column('LONGITUDE', Float))
 
     participant = id_table('PARTICIPANT', metadata)
-    participant.append_column(Column('NAME', String(80), nullable=False, unique=True))
-    participant.append_column(Column('PARTICPANTCLASSID', Integer, ForeignKey("PARTICIPANTCLASS.ID")))
+    participant.append_column(Column('NAME', String(80), nullable=False, unique=False))
+    participant.append_column(Column('PARTICIPANTCLASSID', Integer, ForeignKey("PARTICIPANTCLASS.ID")))
 
     metadata.create_all(engine)
