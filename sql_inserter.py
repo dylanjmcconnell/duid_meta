@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from duid_meta import CONFIG, mmsds_reader
+from duid_meta import CONFIG, MODULE_DIR, mmsds_reader
 from sqlalchemy import create_engine
 
 PATH = os.path.join(CONFIG['local_settings']['test_folder'],"testdb.db")
@@ -61,7 +61,7 @@ def load_latlon():
     dx = df[['STATIONID', 'Latitude', 'Longitude']].drop_duplicates()
     return dx.rename(columns={'Latitude': "LATITUDE", 'Longitude': "LONGITUDE"})
 
-def populate_simple_tables(engine=SQLITE):    
+def populate_simple_tables(engine=SQLITE):
     tables = {"STARTTYPE": ['FAST', 'NOT DISPATCHED', 'SLOW', pd.np.nan],
               "DISPATCHTYPE": ['GENERATOR', 'LOAD'],
               "SCHEDULE_TYPE": ['NON-SCHEDULED', 'SCHEDULED', 'SEMI-SCHEDULED'],
@@ -83,6 +83,12 @@ def populate_simple_tables(engine=SQLITE):
 
     df = pd.DataFrame(['MARKET PARTICIPANT', 'SPECIAL PARTICIPANT', 'POOL PARTICIPANT','NONMARKET'], columns = ["PARTICIPANTCLASSID"])
     df.to_sql("PARTICIPANTCLASS", con=engine, index=False, if_exists='append')
+
+def populate_substance_ids(engine=SQLITE):
+    path = os.path.join(MODULE_DIR, "keytable_data","substance_id_name.csv")
+    df = pd.read_csv(path)
+    df.rename(columns = {"substance_id" : "ID", "substance_name" : "SUBSTANCE_NAME"}, inplace=True)
+    df.to_sql("SUBSTANCE", con=engine, index=False, if_exists='append')
 
 def make_all(engine=SQLITE):
     populate_simple_tables(engine=engine)

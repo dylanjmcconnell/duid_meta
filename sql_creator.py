@@ -52,6 +52,8 @@ def create_test_table(engine=SQLITE):
     state.append_column(Column('REGIONID', Integer, ForeignKey("REGION.ID")))
     state.append_column(Column('STATENAME', String(30)))
 
+    substance = key_table('SUBSTANCE', 'SUBSTANCE_NAME', metadata , str_length = 50)
+
     station = id_table('STATION', metadata)
     station.append_column(Column('STATIONNAME', String(80), nullable=False))
     station.append_column(Column('STATE', Integer, ForeignKey("STATE.ID")))
