@@ -85,7 +85,7 @@ def populate_simple_tables(engine=SQLITE):
     df.to_sql("PARTICIPANTCLASS", con=engine, index=False, if_exists='append')
 
 def populate_substance_ids(engine=SQLITE):
-    path = os.path.join(MODULE_DIR, "keytable_data","substance_id_name.csv")
+    path = os.path.join(MODULE_DIR, "data","substance_id_name.csv")
     df = pd.read_csv(path)
     df.rename(columns = {"substance_id" : "ID", "substance_name" : "SUBSTANCE_NAME"}, inplace=True)
     df.to_sql("SUBSTANCE", con=engine, index=False, if_exists='append')
