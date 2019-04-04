@@ -61,6 +61,9 @@ def create_test_table(engine=SQLITE):
     station.append_column(Column('LATITUDE', Float))
     station.append_column(Column('LONGITUDE', Float))
 
+    station_alias = key_table('STATION_ALIAS', 'STATION_ALIAS', metadata, str_length =80)
+    station_alias.append_column(Column('STATIONID', Integer, ForeignKey("STATION.ID")))
+
     participant = id_table('PARTICIPANT', metadata)
     participant.append_column(Column('NAME', String(80), nullable=False, unique=False))
     participant.append_column(Column('PARTICIPANTCLASSID', Integer, ForeignKey("PARTICIPANTCLASS.ID")))

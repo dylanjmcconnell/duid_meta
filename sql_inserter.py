@@ -7,6 +7,11 @@ PATH = os.path.join(CONFIG['local_settings']['test_folder'],"testdb.db")
 SQLITE = create_engine("sqlite:///{0}".format(PATH))
 PYTHON = create_engine("mysql://{username}:{password}@{hostname}/meta?unix_socket={socket}".format(**CONFIG['python_sql']))
 
+def key_mapper(table="PARTICIPANTCLASS", col="PARTICIPANTCLASSID", engine=SQLITE):
+    sql = "SELECT {1}, ID FROM {0}".format(table, col)
+    df = pd.read_sql(sql, con=engine, index_col="{0}".format(col))
+    return df.to_dict(orient='dict')['ID']
+
 def populate_regions(engine=SQLITE):
     mapping = {1: 'NSW1', 2 : 'QLD1', 3:'SA1',  4 : 'TAS1', 5:'VIC1'}
     df = pd.DataFrame.from_dict(mapping, orient="index")
@@ -29,12 +34,13 @@ def populate_stations(engine=SQLITE):
     state_keys = pd.read_sql("SELECT STATE as _KEY, ID FROM STATE UNION SELECT STATENAME as _KEY, ID FROM STATE", con=engine, index_col="_KEY")
     key_map = state_keys.to_dict(orient='dict')['ID']
 
-    df = mmsds_reader.download(dataset="station", y=2019, m=2)
+    df = mmsds_reader.download(dataset="station", y=2019, m=3)
     df.STATE = df.STATE.apply(lambda x: key_map[x])
     for string in ['COOMA', 'BRISBANE', 'ADELAIDE', 'PORTLAND']:
         df.loc[df.POSTCODE==string, "POSTCODE"] = pd.np.nan
 
     dx = df[['STATIONID', 'STATIONNAME', 'STATE', 'POSTCODE']].copy()
+    dx['STATIONNAME'] = dx['STATIONNAME'].apply(str.strip)
     dx.sort_values("STATIONID", inplace=True)
     df_latlon =  load_latlon()
 
@@ -42,8 +48,7 @@ def populate_stations(engine=SQLITE):
     df_comb.to_sql("STATION", con=engine, index=False, if_exists='append')
 
 def populate_participants(engine=SQLITE):
-    participant_keys = pd.read_sql("SELECT PARTICIPANTCLASSID, ID FROM PARTICIPANTCLASS", con=engine, index_col="PARTICIPANTCLASSID")
-    key_map = participant_keys.to_dict(orient='dict')['ID']
+    key_map = key_mapper("PARTICIPANTCLASS", engine=engine)    
 
     df = mmsds_reader.download(dataset="participant", y=2019, m=2)
     df.PARTICIPANTCLASSID = df.PARTICIPANTCLASSID.apply(lambda x: key_map[x])
@@ -83,6 +88,14 @@ def populate_simple_tables(engine=SQLITE):
 
     df = pd.DataFrame(['MARKET PARTICIPANT', 'SPECIAL PARTICIPANT', 'POOL PARTICIPANT','NONMARKET'], columns = ["PARTICIPANTCLASSID"])
     df.to_sql("PARTICIPANTCLASS", con=engine, index=False, if_exists='append')
+
+def load_station_alias(engine=SQLITE):
+    id_key_map = key_mapper("STATION", "STATIONID")    
+    path = os.path.join(MODULE_DIR, "data","station_alias.csv")
+    df = pd.read_csv(path)
+    df.STATIONID = df.STATIONID.apply(lambda x: id_key_map[x])
+    df[['STATION_ALIAS', 'STATIONID']].to_sql("STATION_ALIAS", con=engine, index=False, if_exists='append')
+    
 
 def populate_substance_ids(engine=SQLITE):
     path = os.path.join(MODULE_DIR, "data","substance_id_name.csv")
