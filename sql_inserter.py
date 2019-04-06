@@ -1,4 +1,5 @@
 import pandas as pd
+import datetime
 import os
 from duid_meta import CONFIG, MODULE_DIR, mmsds_reader
 from sqlalchemy import create_engine
@@ -7,13 +8,16 @@ PATH = os.path.join(CONFIG['local_settings']['test_folder'],"testdb.db")
 SQLITE = create_engine("sqlite:///{0}".format(PATH))
 PYTHON = create_engine("mysql://{username}:{password}@{hostname}/meta?unix_socket={socket}".format(**CONFIG['python_sql']))
 
+#for legacy duid mapping
+legacy = create_engine("mysql://select:marblemysql@marble.earthsci.unimelb.edu.au/nemweb_meta")
+
 def key_mapper(table="PARTICIPANTCLASS", col="PARTICIPANTCLASSID", engine=SQLITE):
     sql = "SELECT {1}, ID FROM {0}".format(table, col)
     df = pd.read_sql(sql, con=engine, index_col="{0}".format(col))
     return df.to_dict(orient='dict')['ID']
 
 def populate_regions(engine=SQLITE):
-    mapping = {1: 'NSW1', 2 : 'QLD1', 3:'SA1',  4 : 'TAS1', 5:'VIC1'}
+    mapping = {1: 'NSW1', 2 : 'QLD1', 3:'SA1',  4 : 'TAS1', 5:'VIC1', 6: 'SNOWY1'}
     df = pd.DataFrame.from_dict(mapping, orient="index")
     df.rename(columns={0: "REGIONID"},inplace=True)
     df.to_sql("REGION", con=engine, index=False, if_exists='append')
@@ -103,6 +107,75 @@ def populate_substance_ids(engine=SQLITE):
     df.rename(columns = {"substance_id" : "ID", "substance_name" : "SUBSTANCE_NAME"}, inplace=True)
     df.to_sql("SUBSTANCE", con=engine, index=False, if_exists='append')
 
+def dudetailsummary(df):
+    df = df.copy()
+    cols = ['DUID',  'REGIONID', 'STATIONID', 'PARTICIPANTID', 'CONNECTIONPOINTID', 
+            'DISPATCHTYPE', 'SCHEDULE_TYPE', 'STARTTYPE',  
+            'TRANSMISSIONLOSSFACTOR', 'DISTRIBUTIONLOSSFACTOR', 
+            'MIN_RAMP_RATE_UP', 'MIN_RAMP_RATE_DOWN', 'MAX_RAMP_RATE_UP', 'MAX_RAMP_RATE_DOWN',
+            'IS_AGGREGATED', 'START_DATE', 'END_DATE', 'LASTCHANGED']
+
+    for col in ['START_DATE', 'END_DATE', 'LASTCHANGED']:
+        df[col] = df[col].apply(lambda x: date_parse(x))
+
+    id_key_map = key_mapper("STATION", "STATIONID")    
+    df.STATIONID = df.STATIONID.apply(lambda x: id_key_map[x])
+
+    id_key_map = key_mapper("REGION", "REGIONID")    
+    df.REGIONID = df.REGIONID.apply(lambda x: id_key_map[x])
+
+    id_key_map = key_mapper("PARTICIPANT", "PARTICIPANTID")    
+    df.PARTICIPANTID = df.PARTICIPANTID.apply(lambda x: id_key_map[x])
+
+    id_key_map = key_mapper("CONNECTIONPOINT", "CONNECTIONPOINTID")    
+    df.CONNECTIONPOINTID = df.CONNECTIONPOINTID.apply(lambda x: id_key_map[x])
+
+    id_key_map = key_mapper("DISPATCHTYPE", "DISPATCHTYPE")    
+    df.DISPATCHTYPE = df.DISPATCHTYPE.apply(lambda x: id_key_map[x])
+    
+    id_key_map = key_mapper("SCHEDULE_TYPE", "SCHEDULE_TYPE")    
+    df.SCHEDULE_TYPE = df.SCHEDULE_TYPE.apply(lambda x: id_key_map[x])
+
+    id_key_map = key_mapper("STARTTYPE", "STARTTYPE")    
+    df.STARTTYPE = df.STARTTYPE.apply(lambda x: nan_parse(id_key_map,x))
+
+    id_key_map = key_mapper("DU", "DUID")    
+    df.DUID = df.DUID.apply(lambda x: nan_parse(id_key_map,x))
+
+    return df[cols]
+
+def date_parse(x):
+    return datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
+
+def nan_parse(id_key_map, x):
+    try: 
+        return id_key_map[x]
+    except:
+        return x
+
+def populate_duid_table(engine=SQLITE):
+    df_ds = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=3)
+
+    #all duids
+    duid_key_map = key_mapper("FULL_REGISTER", "DUID", engine=legacy) 
+    df_ds['ID'] = df_ds.DUID.apply(lambda x: duid_parse(duid_key_map,x))
+    
+    unique_duids = df_ds[['ID','DUID']].drop_duplicates()
+
+    #duids with legacy ids    
+    da = unique_duids[unique_duids.ID.notna()]
+    da.to_sql("DU", con=engine, if_exists='append', index=None) 
+
+    #new duids
+    db = unique_duids[unique_duids.ID.isna()]
+    db.to_sql("DU", con=engine, if_exists='append', index=None) 
+
+def duid_parse(id_key_map, x):
+    try: 
+        return id_key_map[x]
+    except:
+        return pd.np.nan
+
 def make_all(engine=SQLITE):
     populate_simple_tables(engine=engine)
     populate_regions(engine=engine)
@@ -110,4 +183,55 @@ def make_all(engine=SQLITE):
     populate_connection_points(engine=engine)
     populate_participants(engine=engine)
     populate_stations(engine=engine)
+    populate_duid_table(engine=SQLITE)
 
+def display_names(x):
+    display_str = x.title()
+    for name in ["Power Station",
+                "Wind Farm",
+                "Solar Farm",
+                "Power Plant",
+                "Solar Plant",
+                "Complex",
+                "Facility",
+                "Gas Turbine",
+                "Station"]:
+        display_str = display_str.replace(name,"")
+
+    for name, replace in {"Landfill Gas": "(LFG)",
+                          "Nsw": "NSW",
+                          "Agl": "AGL"}.items():
+        display_str=display_str.replace(name, replace)
+
+    #special_case
+    for case, replace in {"Amcor Glass, Gawler Plant": "Amcor Glass, Gawler",
+                          "Hepburn Community": "Hepburn wind",
+                          "Basslink Hvdc Link": "Basslink",
+                          "Ballarat Base Hospital Plant" : "Ballarat Hospital",
+                          "Bankstown Sports Club Plant Units" : "Bankstown Sports Club",
+                          "Woodlawn Bioreactor Energy Generation": "Woodlawn Bioreactor",
+                          "Wollert Renewable Energy " : "Wollert RE Facility",
+                          "Woolnorth Studland Bay / Bluff Point" : "Woolnorth",
+                          'Shoalhaven  (Bendeela And Kangaroo Valley  And Pumps)': "Shoalhaven",
+                          "Wingfield 1 Landfill": "Wingfield (LFG)",
+                          "Wingfield 2 Landfill": "Wingfield (LFG)",
+                          "Woy Woy Landfill ": "Woy Woy (LFG)",
+                          "Wyndham Waste Disposal " : "Wyndham (LFG)",
+                          "Brooklyn Lfg U1-3": "Brooklyn (LFG)",
+                          "Browns Plains (LFG) Ps": "Brown Plains (LFG)",
+                          "Bogong / Mackay" : "Bogong/Mackay",
+                          "Catagunya / Liapootah / Wayatinah": "Catagunya/Liapootah/Wayatinah",
+                          "Callide C Nett Off" : "Callide C",
+                          "Eastern Creek 2 Gas Utilisation" : "Eastern Creek (LFG)",
+                          "Eastern Creek Lfg Ps Units 1-4" : "Eastern Creek (LFG)",
+                          "Hallam Road Renewable Energy" : "Hallam Rd RE Facility",
+                          "Grosvenor 1 Waste Coal Mine Gas" : "Grosvenor",
+                          "Isis Central Sugar Mill Co-Generation Plant" : "Isis Central Sugar Mill"
+
+
+
+
+                          }.items():
+        if case  in  display_str: 
+            display_str = replace
+    return display_str.strip()
