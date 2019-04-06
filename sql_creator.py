@@ -24,6 +24,16 @@ def key_table(tablename, fieldname, metadata, str_length=10, allow_null=False):
            Column('ID', Integer, primary_key=True),
            Column(fieldname, String(str_length), nullable=allow_null, unique=True))
 
+def data_table(tablename, foreign_keys, data_cols, metadata):
+    table = Table(tablename, metadata,
+           Column('ID', Integer, primary_key=True))
+
+    for column, id_table in foreign_keys.items():
+        table.append_column(Column(column, Integer, ForeignKey("{0}.ID".format(id_table))))
+
+    for column, dtype in data_cols.items():
+        table.append_column(Column(column, dtype))
+
 def id_table(tablename, metadata):
     return key_table(tablename, tablename+"ID", metadata)
 
@@ -33,7 +43,7 @@ def create_test_table(engine=SQLITE):
 
     metadata = MetaData()
 
-    for tablename in ['CONNECTIONPOINT', 'REGION', 'DUID']:
+    for tablename in ['CONNECTIONPOINT', 'REGION', 'DU']:
             id_table(tablename, metadata)
 
     key_table('PARTICIPANTCLASS', 'PARTICIPANTCLASSID', metadata, str_length=20)
@@ -67,5 +77,11 @@ def create_test_table(engine=SQLITE):
     participant = id_table('PARTICIPANT', metadata)
     participant.append_column(Column('NAME', String(80), nullable=False, unique=False))
     participant.append_column(Column('PARTICIPANTCLASSID', Integer, ForeignKey("PARTICIPANTCLASS.ID")))
+
+    foreign_keys = {'DUID':'DU', 'REGIONID':'REGION', 'STATIONID':'STATION', 'PARTICIPANTID':'PARTICIPANT', 'CONNECTIONPOINTID':'CONNECTIONPOINT',
+       'DISPATCHTYPE':'DISPATCHTYPE', 'SCHEDULE_TYPE':'SCHEDULE_TYPE', 'STARTTYPE': 'STARTTYPE'}
+    data_cols = {'TRANSMISSIONLOSSFACTOR': Float, 'DISTRIBUTIONLOSSFACTOR':Float, 'MIN_RAMP_RATE_UP': Float, 'MIN_RAMP_RATE_DOWN': Float,
+       'MAX_RAMP_RATE_UP':Float, 'MAX_RAMP_RATE_DOWN':Float, 'IS_AGGREGATED':Float, 'START_DATE': DateTime, 'END_DATE':DateTime, 'LASTCHANGED':DateTime}
+    dudetailsummary = data_table("DUDETAILSUMMARY", foreign_keys=foreign_keys, data_cols=data_cols, metadata=metadata)
 
     metadata.create_all(engine)
