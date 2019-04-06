@@ -107,8 +107,8 @@ def populate_substance_ids(engine=SQLITE):
     df.rename(columns = {"substance_id" : "ID", "substance_name" : "SUBSTANCE_NAME"}, inplace=True)
     df.to_sql("SUBSTANCE", con=engine, index=False, if_exists='append')
 
-def dudetailsummary(df):
-    df = df.copy()
+def populate_dudetailsummary(engine=SQLITE):
+    df = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=3)
     cols = ['DUID',  'REGIONID', 'STATIONID', 'PARTICIPANTID', 'CONNECTIONPOINTID', 
             'DISPATCHTYPE', 'SCHEDULE_TYPE', 'STARTTYPE',  
             'TRANSMISSIONLOSSFACTOR', 'DISTRIBUTIONLOSSFACTOR', 
@@ -118,32 +118,20 @@ def dudetailsummary(df):
     for col in ['START_DATE', 'END_DATE', 'LASTCHANGED']:
         df[col] = df[col].apply(lambda x: date_parse(x))
 
-    id_key_map = key_mapper("STATION", "STATIONID")    
-    df.STATIONID = df.STATIONID.apply(lambda x: id_key_map[x])
+    for id_table, column in {"STATION": "STATIONID",    
+                            "REGION":"REGIONID",
+                            "PARTICIPANT":"PARTICIPANTID",
+                            "CONNECTIONPOINT": "CONNECTIONPOINTID",
+                            "DISPATCHTYPE": "DISPATCHTYPE",
+                            "SCHEDULE_TYPE": "SCHEDULE_TYPE",
+                            "DU": "DUID"}.items():
+        id_key_map = key_mapper(id_table, column)    
+        df[column] = df[column].apply(lambda x: id_key_map[x])    
 
-    id_key_map = key_mapper("REGION", "REGIONID")    
-    df.REGIONID = df.REGIONID.apply(lambda x: id_key_map[x])
-
-    id_key_map = key_mapper("PARTICIPANT", "PARTICIPANTID")    
-    df.PARTICIPANTID = df.PARTICIPANTID.apply(lambda x: id_key_map[x])
-
-    id_key_map = key_mapper("CONNECTIONPOINT", "CONNECTIONPOINTID")    
-    df.CONNECTIONPOINTID = df.CONNECTIONPOINTID.apply(lambda x: id_key_map[x])
-
-    id_key_map = key_mapper("DISPATCHTYPE", "DISPATCHTYPE")    
-    df.DISPATCHTYPE = df.DISPATCHTYPE.apply(lambda x: id_key_map[x])
+    id_key_map = key_mapper("STARTTYPE", "STARTTYPE")
+    df['STARTTYPE'] = df['STARTTYPE'].apply(lambda x: nan_parse(id_key_map, x))   
+    df[cols].to_sql("DUDETAILSUMMARY", con=engine, index=False, if_exists='append')
     
-    id_key_map = key_mapper("SCHEDULE_TYPE", "SCHEDULE_TYPE")    
-    df.SCHEDULE_TYPE = df.SCHEDULE_TYPE.apply(lambda x: id_key_map[x])
-
-    id_key_map = key_mapper("STARTTYPE", "STARTTYPE")    
-    df.STARTTYPE = df.STARTTYPE.apply(lambda x: nan_parse(id_key_map,x))
-
-    id_key_map = key_mapper("DU", "DUID")    
-    df.DUID = df.DUID.apply(lambda x: nan_parse(id_key_map,x))
-
-    return df[cols]
-
 def date_parse(x):
     return datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
 
@@ -183,4 +171,5 @@ def make_all(engine=SQLITE):
     populate_connection_points(engine=engine)
     populate_participants(engine=engine)
     populate_stations(engine=engine)
-    populate_duid_table(engine=SQLITE)
+    populate_duid_table(engine=engine)
+    populate_dudetailsummary(engine=engine)
