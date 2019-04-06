@@ -131,6 +131,35 @@ def populate_dudetailsummary(engine=SQLITE):
     id_key_map = key_mapper("STARTTYPE", "STARTTYPE")
     df['STARTTYPE'] = df['STARTTYPE'].apply(lambda x: nan_parse(id_key_map, x))   
     df[cols].to_sql("DUDETAILSUMMARY", con=engine, index=False, if_exists='append')
+
+def populate_genunits(df):
+    df = df.copy()
+    cols = ['GENSETID', 'CDINDICATOR', 'AGCFLAG', 'SPINNINGFLAG',
+            'VOLTLEVEL', 'REGISTEREDCAPACITY', 'STARTTYPE',
+            'MKTGENERATORIND', 'NORMALSTATUS', 'MAXCAPACITY', 'GENSETTYPE',
+            'LASTCHANGED', 'CO2E_EMISSIONS_FACTOR',
+            'CO2E_ENERGY_SOURCE', 'CO2E_DATA_SOURCE']
+
+    for col in ['LASTCHANGED']:
+        df[col] = df[col].apply(lambda x: date_parse(x))
+
+    for col in ['CDINDICATOR', 'AGCFLAG', 'SPINNINGFLAG', 'MKTGENERATORIND', 'NORMALSTATUS']:
+        df[col] = df[col].apply(lambda x: True if x == "Y" else False)
+
+    id_key_map = key_mapper("DISPATCHTYPE", "DISPATCHTYPE")    
+    df["GENSETTYPE"] = df["GENSETTYPE"].apply(lambda x: id_key_map[x])    
+
+
+    for id_table, column in {"CO2E_ENERGY_SOURCE": "CO2E_ENERGY_SOURCE",
+                             "CO2E_DATA_SOURCE": "CO2E_DATA_SOURCE",
+                             "STARTTYPE": "STARTTYPE"}.items():
+        id_key_map = key_mapper(id_table, column)    
+        df[column] = df[column].apply(lambda x: nan_parse(id_key_map,x))
+
+    return df[cols]
+
+
+    return df[cols]
     
 def date_parse(x):
     return datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
