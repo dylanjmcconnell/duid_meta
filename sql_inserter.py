@@ -132,8 +132,8 @@ def populate_dudetailsummary(engine=SQLITE):
     df['STARTTYPE'] = df['STARTTYPE'].apply(lambda x: nan_parse(id_key_map, x))   
     df[cols].to_sql("DUDETAILSUMMARY", con=engine, index=False, if_exists='append')
 
-def populate_genunits(df):
-    df = df.copy()
+def populate_genunits(engine=SQLITE):
+    df = mmsds_reader.download(dataset="genunits", y=2019, m=3)
     cols = ['GENSETID', 'CDINDICATOR', 'AGCFLAG', 'SPINNINGFLAG',
             'VOLTLEVEL', 'REGISTEREDCAPACITY', 'STARTTYPE',
             'MKTGENERATORIND', 'NORMALSTATUS', 'MAXCAPACITY', 'GENSETTYPE',
@@ -149,6 +149,9 @@ def populate_genunits(df):
     id_key_map = key_mapper("DISPATCHTYPE", "DISPATCHTYPE")    
     df["GENSETTYPE"] = df["GENSETTYPE"].apply(lambda x: id_key_map[x])    
 
+    id_key_map = key_mapper("GENSET", "GENSETID")    
+    df["GENSETID"] = df["GENSETID"].apply(lambda x: id_key_map[x])    
+
 
     for id_table, column in {"CO2E_ENERGY_SOURCE": "CO2E_ENERGY_SOURCE",
                              "CO2E_DATA_SOURCE": "CO2E_DATA_SOURCE",
@@ -156,10 +159,7 @@ def populate_genunits(df):
         id_key_map = key_mapper(id_table, column)    
         df[column] = df[column].apply(lambda x: nan_parse(id_key_map,x))
 
-    return df[cols]
-
-
-    return df[cols]
+    df[cols].to_sql("GENUNITS", con=engine, index=False, if_exists='append')
     
 def date_parse(x):
     return datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
@@ -187,6 +187,24 @@ def populate_duid_table(engine=SQLITE):
     db = unique_duids[unique_duids.ID.isna()]
     db.to_sql("DU", con=engine, if_exists='append', index=None) 
 
+def populate_genset_table(engine=SQLITE):
+    # could be added to genunit create
+    df_g = mmsds_reader.download(dataset="genunits", y=2019, m=3)
+
+    #all duids 
+    duid_key_map = key_mapper("FULL_REGISTER", "DUID", engine=legacy) 
+    df_g['ID'] = df_g.GENSETID.apply(lambda x: duid_parse(duid_key_map,x))
+    
+    genunitid = df_g[['ID','GENSETID']]
+
+    #duids with legacy ids    
+    da = genunitid[genunitid.ID.notna()]
+    da.to_sql("GENSET", con=engine, if_exists='append', index=None) 
+
+    #new duids
+    db = genunitid[genunitid.ID.isna()]
+    db.to_sql("GENSET", con=engine, if_exists='append', index=None) 
+
 def duid_parse(id_key_map, x):
     try: 
         return id_key_map[x]
@@ -202,3 +220,5 @@ def make_all(engine=SQLITE):
     populate_stations(engine=engine)
     populate_duid_table(engine=engine)
     populate_dudetailsummary(engine=engine)
+    populate_genset_table(engine=engine)
+    populate_genunits(engine=engine)
