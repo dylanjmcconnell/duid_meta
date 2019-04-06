@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import Column, Integer, String, MetaData, create_engine, Table, ForeignKey, Numeric, DateTime, Float
+from sqlalchemy import Column, Integer, String, MetaData, create_engine, Table, ForeignKey, Numeric, DateTime, Float, Boolean
 from duid_meta import CONFIG
 
 PATH = os.path.join(CONFIG['local_settings']['test_folder'],"testdb.db")
@@ -83,5 +83,9 @@ def create_test_table(engine=SQLITE):
     data_cols = {'TRANSMISSIONLOSSFACTOR': Float, 'DISTRIBUTIONLOSSFACTOR':Float, 'MIN_RAMP_RATE_UP': Float, 'MIN_RAMP_RATE_DOWN': Float,
        'MAX_RAMP_RATE_UP':Float, 'MAX_RAMP_RATE_DOWN':Float, 'IS_AGGREGATED':Float, 'START_DATE': DateTime, 'END_DATE':DateTime, 'LASTCHANGED':DateTime}
     dudetailsummary = data_table("DUDETAILSUMMARY", foreign_keys=foreign_keys, data_cols=data_cols, metadata=metadata)
+
+    foreign_keys = {'GENSETTYPE':'DISPATCHTYPE', 'STARTTYPE': 'STARTTYPE', 'CO2E_DATA_SOURCE': 'CO2E_DATA_SOURCE', 'CO2E_ENERGY_SOURCE' : 'CO2E_ENERGY_SOURCE'}
+    data_cols = {'REGISTEREDCAPACITY': Float, "MAXCAPACITY": Float, "CO2E_EMISSIONS_FACTOR": Float, "VOLTLEVEL" : Float, 'CDINDICATOR': Boolean, 'AGCFLAG': Boolean, 'SPINNINGFLAG': Boolean, 'MKTGENERATORIND': Boolean, 'NORMALSTATUS': Boolean, 'LASTCHANGED':DateTime}
+    genunits = data_table("GENUNITS", foreign_keys=foreign_keys, data_cols=data_cols, metadata=metadata)
 
     metadata.create_all(engine)
