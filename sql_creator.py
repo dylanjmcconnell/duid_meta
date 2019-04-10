@@ -67,6 +67,7 @@ def create_test_table(engine=SQLITE):
 
     station = id_table('STATION', metadata)
     station.append_column(Column('STATIONNAME', String(80), nullable=False))
+    station.append_column(Column('DISPLAYNAME', String(80), nullable=False))
     station.append_column(Column('STATE', Integer, ForeignKey("STATE.ID")))
     station.append_column(Column('POSTCODE', Integer))
     station.append_column(Column('LATITUDE', Float))

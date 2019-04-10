@@ -1,7 +1,7 @@
 import pandas as pd
 import datetime
 import os
-from duid_meta import CONFIG, MODULE_DIR, mmsds_reader
+from duid_meta import CONFIG, MODULE_DIR, mmsds_reader, display_names
 from sqlalchemy import create_engine
 
 PATH = os.path.join(CONFIG['local_settings']['test_folder'],"testdb.db")
@@ -45,6 +45,7 @@ def populate_stations(engine=SQLITE):
 
     dx = df[['STATIONID', 'STATIONNAME', 'STATE', 'POSTCODE']].copy()
     dx['STATIONNAME'] = dx['STATIONNAME'].apply(str.strip)
+    dx['DISPLAYNAME'] = df['STATIONNAME'].apply(display_names.display_names)
     dx.sort_values("STATIONID", inplace=True)
     df_latlon =  load_latlon()
 
@@ -93,13 +94,13 @@ def populate_simple_tables(engine=SQLITE):
     df = pd.DataFrame(['MARKET PARTICIPANT', 'SPECIAL PARTICIPANT', 'POOL PARTICIPANT','NONMARKET'], columns = ["PARTICIPANTCLASSID"])
     df.to_sql("PARTICIPANTCLASS", con=engine, index=False, if_exists='append')
 
-def load_station_alias(engine=SQLITE):
+def populate_station_alias(engine=SQLITE):
     id_key_map = key_mapper("STATION", "STATIONID")    
     path = os.path.join(MODULE_DIR, "data","station_alias.csv")
     df = pd.read_csv(path)
     df.STATIONID = df.STATIONID.apply(lambda x: id_key_map[x])
     df[['STATION_ALIAS', 'STATIONID']].to_sql("STATION_ALIAS", con=engine, index=False, if_exists='append')
-    
+
 
 def populate_substance_ids(engine=SQLITE):
     path = os.path.join(MODULE_DIR, "data","substance_id_name.csv")
@@ -232,3 +233,5 @@ def make_all(engine=SQLITE):
     populate_dudetailsummary(engine=engine)
     populate_genset_table(engine=engine)
     populate_genunits(engine=engine)
+    populate_operating_status(engine=engine)
+    populate_station_alias(engine=engine)
