@@ -64,6 +64,7 @@ def create_test_table(engine=SQLITE):
 
     substance = key_table('SUBSTANCE', 'SUBSTANCE_NAME', metadata , str_length = 50)
 
+
     station = id_table('STATION', metadata)
     station.append_column(Column('STATIONNAME', String(80), nullable=False))
     station.append_column(Column('STATE', Integer, ForeignKey("STATE.ID")))
@@ -87,5 +88,9 @@ def create_test_table(engine=SQLITE):
     foreign_keys = {'GENSETID':'GENSET', 'GENSETTYPE':'DISPATCHTYPE', 'STARTTYPE': 'STARTTYPE', 'CO2E_DATA_SOURCE': 'CO2E_DATA_SOURCE', 'CO2E_ENERGY_SOURCE' : 'CO2E_ENERGY_SOURCE'}
     data_cols = {'REGISTEREDCAPACITY': Float, "MAXCAPACITY": Float, "CO2E_EMISSIONS_FACTOR": Float, "VOLTLEVEL" : Float, 'CDINDICATOR': Boolean, 'AGCFLAG': Boolean, 'SPINNINGFLAG': Boolean, 'MKTGENERATORIND': Boolean, 'NORMALSTATUS': Boolean, 'LASTCHANGED':DateTime}
     genunits = data_table("GENUNITS", foreign_keys=foreign_keys, data_cols=data_cols, metadata=metadata)
+
+    foreign_keys = {"STATIONID": "STATION", "STATUS": "STATUS"}
+    data_cols = {"EFFECTIVEDATE": DateTime}
+    data_table('STATIONOPERATINGSTATUS', foreign_keys=foreign_keys, data_cols=data_cols, metadata=metadata)
 
     metadata.create_all(engine)

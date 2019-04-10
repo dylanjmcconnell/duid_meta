@@ -74,7 +74,7 @@ def populate_simple_tables(engine=SQLITE):
     tables = {"STARTTYPE": ['FAST', 'NOT DISPATCHED', 'SLOW', pd.np.nan],
               "DISPATCHTYPE": ['GENERATOR', 'LOAD'],
               "SCHEDULE_TYPE": ['NON-SCHEDULED', 'SCHEDULED', 'SEMI-SCHEDULED'],
-              "STATUS" : ['COMMISSIONED', 'DECOMMISSIONED'],
+              "STATUS" : ['COMMISSIONED', 'DECOMMISSIONED', 'COMMITTED'],
               "CO2E_ENERGY_SOURCE" : ['Black coal', 'Brown coal', 'Hydro', pd.np.nan, 'Natural Gas (Pipeline)',
                                      'Landfill biogas methane', 'Bagasse', 'Coal seam methane', 'Wind',
                                      'Diesel oil', 'Solar', 'Primary solid biomass fuels',
@@ -210,6 +210,16 @@ def duid_parse(id_key_map, x):
         return id_key_map[x]
     except:
         return pd.np.nan
+
+def populate_operating_status(engine=SQLITE):
+    df_os = mmsds_reader.download(dataset='operatingstatus')
+    station_key_map = key_mapper("STATION", "STATIONID") 
+    df_os['STATIONID'] = df_os.STATIONID.apply(lambda x: station_key_map[x])
+
+    status_key_map = key_mapper("STATUS", "STATUS") 
+    df_os['STATUS'] = df_os['STATUS'].apply(lambda x: status_key_map[x])
+
+    df_os[['STATIONID', 'STATUS', 'EFFECTIVEDATE']].to_sql("STATIONOPERATINGSTATUS", con=engine, if_exists='append', index=None) 
 
 def make_all(engine=SQLITE):
     populate_simple_tables(engine=engine)
