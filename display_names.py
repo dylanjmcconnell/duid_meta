@@ -2,22 +2,44 @@ def display_names(x):
     display_str = x.title()
     for name in ["Power Station",
                 "Wind Farm",
+                "Windfarm",
                 "Solar Farm",
+                "Solar Park",
+                "Solar Project",
                 "Power Plant",
                 "Solar Plant",
                 "Complex",
-                "Facility",
+                "Generation Facility",
+                "Gas Turbines",
                 "Gas Turbine",
-                "Station"]:
+                "Combined Cycle",
+                "Facility",
+                "Plant",
+                "Stage",
+                "Station",
+                "Diesel",
+                "Generator",
+                "Mountain Streams",
+                '"',
+                "'"]:
         display_str = display_str.replace(name,"")
 
-    for name, replace in {"Landfill Gas": "(LFG)",
+    for name, replace in {"Landfill Gas": "LFG",
                           "Nsw": "NSW",
-                          "Agl": "AGL"}.items():
+                          "Agl": "AGL",
+                          "Vic": "VIC ",
+                          "Sa ": "SA ",
+                          "Hrl": "HRL",
+                          "Lfg": "LFG",
+                          "Krc": "KRC" ,
+                          "Scsf": "SCSF",
+                          "Renewable Energy": "RE Facility",
+                          "Waste Coal Mine Gas":"WCMG"}.items():
         display_str=display_str.replace(name, replace)
 
     #special_case
-    for case, replace in {"Amcor Glass, Gawler Plant": "Amcor Glass, Gawler",
+    for case, replace in {"Swanbank B  & Swanbank E" : "Swanbank",
+                          "Amcor Glass, Gawler Plant": "Amcor Glass, Gawler",
                           "Hepburn Community": "Hepburn wind",
                           "Basslink Hvdc Link": "Basslink",
                           "Ballarat Base Hospital Plant" : "Ballarat Hospital",
@@ -30,21 +52,55 @@ def display_names(x):
                           "Wingfield 2 Landfill": "Wingfield (LFG)",
                           "Woy Woy Landfill ": "Woy Woy (LFG)",
                           "Wyndham Waste Disposal " : "Wyndham (LFG)",
-                          "Brooklyn Lfg U1-3": "Brooklyn (LFG)",
+                          "Brooklyn LFG U1-3": "Brooklyn LFG",
                           "Browns Plains (LFG) Ps": "Brown Plains (LFG)",
                           "Bogong / Mackay" : "Bogong/Mackay",
                           "Catagunya / Liapootah / Wayatinah": "Catagunya/Liapootah/Wayatinah",
+                          "Lemonthyme / Wilmot" : "Lemonthyme/Wilmot",
                           "Callide C Nett Off" : "Callide C",
-                          "Eastern Creek 2 Gas Utilisation" : "Eastern Creek (LFG)",
-                          "Eastern Creek Lfg Ps Units 1-4" : "Eastern Creek (LFG)",
+                          "Eastern Creek 2 Gas Utilisation" : "Eastern Creek LFG",
+                          "Eastern Creek LFG Ps Units 1-4" : "Eastern Creek LFG",
                           "Hallam Road Renewable Energy" : "Hallam Rd RE Facility",
                           "Grosvenor 1 Waste Coal Mine Gas" : "Grosvenor",
-                          "Isis Central Sugar Mill Co-Generation Plant" : "Isis Central Sugar Mill"
-
-
-
-
+                          "Isis Central Sugar Mill Co-Generation" : "Isis Central Sugar Mill",
+                          "Smithfield Energy": "Smithfield",
+                          "Jindabyne Pump At Guthega": "Jindabyne Pump",
+                          "Ergon Frequency Control A.S.": "Ergon FCAS",
+                          "Dlink Interconnector": "Directlink",
+                          "Uws Co-Gen Unit":   "UWS Co-gen",
+                          "Rocky Point Cogeneration Plant" : "Rocky Point Co-gen",
+                          "Murlink Intconnector": "Murraylink",
+                          "Snowtown  Units 1 And 47": "Snowtown",
+                          "Ballarat Base Hospital": "Ballarat Hospital",
+                          "Amcor Glass, Gawler": "Amcor Glass",
+                          "Southbank Institute Of Technology Unit 1": "Southbank Institute Of Technology",
+                          "Lucas Heights Ii": "Lucas Heights 2",
+                          "Western Suburbs League Club (Campbelltown)": "Western Suburbs League Club",
+                          "Bankstown Sports Club  Units": "Bankstown Sports Club",
+                          "Nine Network Willoughby": "Willoughby",
+                          "Valley Power Peaking" : "Valley Power",
+                          "Pedler Creek LFG  Units 1-3": "Pedler Creek LFG",
+                          "Kincumber Landfill Site": "Kincumber LFG",
+                          "SA Water Bolivar Waste Water Treatment (Wwt)": "Bolivar Waste Water Treatment",
+                          "Melbourne Regional Landfill" : "Melbourne Regional LFG",
+                          "Snowtown  2 North": "Snowtown North",
+                          "Hume (NSW) Hydro" : "Hume Hydro (NSW)",
+                          "Hume (VIC ) Hydro" : "Hume Hydro (VIC)",
+                          "South East Water - Halllam Hydro" : "Halllam Hydro"
                           }.items():
         if case  in  display_str: 
             display_str = replace
-    return display_str.strip()
+    display_str =  display_str.strip()
+    special_cases = ["Bhas Zinc Plant SA",
+                     "Victorian Smelter Ancillary Services", 
+                     "Northern Gas Turbine",
+                     "DLINK",
+                     "RESERVE TRADER NSW1",
+                     "Murraylink",
+                     "NSW1 Dummy Generator",
+                     "Basslink",
+                     "Station ID - Dummy (NSCAS)",
+                     "Enoc Msap VIC",
+                     "Traralgon Network Support Station",
+                     "ERGON FREQUENCY CONTROL A.S."]
+    return display_str
