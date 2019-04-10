@@ -198,7 +198,6 @@ def populate_genset_table(engine=SQLITE):
     
     genunitid = df_g[['ID','GENSETID']]
 
-    #duids with legacy ids    
     da = genunitid[genunitid.ID.notna()]
     da.to_sql("GENSET", con=engine, if_exists='append', index=None) 
 
@@ -235,3 +234,4 @@ def make_all(engine=SQLITE):
     populate_genunits(engine=engine)
     populate_operating_status(engine=engine)
     populate_station_alias(engine=engine)
+    populate_substance_ids(engine=engine)
