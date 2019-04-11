@@ -72,8 +72,11 @@ def load_station(stationid="BAYSW", engine=SQLITE):
         npi_d = duid_data.index[1]
 
     npi_year, n_data = npi_data(duid=npi_d)
-    station_dict['npi'] = {"data" : n_data.set_index('substance_name').to_dict(orient='index'),
-                           "report_year": npi_year}
+    n_data.set_index('substance_name', inplace=True)
+    n_data.rename(columns={col: col.replace("_emission_kg","") for col in n_data}, inplace=True)
+    station_dict['npi'] = {"data" : {substance: group.to_dict() for substance, group in     n_data.iterrows()},
+                           "report_year": npi_year,
+                           "unit": "kg"}
 
     return station_dict
 
