@@ -86,7 +86,7 @@ def create_test_table(engine=SQLITE):
        'MAX_RAMP_RATE_UP':Float, 'MAX_RAMP_RATE_DOWN':Float, 'IS_AGGREGATED':Float, 'START_DATE': DateTime, 'END_DATE':DateTime, 'LASTCHANGED':DateTime}
     dudetailsummary = data_table("DUDETAILSUMMARY", foreign_keys=foreign_keys, data_cols=data_cols, metadata=metadata)
 
-    foreign_keys = {'GENSETID':'GENSET', 'GENSETTYPE':'DISPATCHTYPE', 'STARTTYPE': 'STARTTYPE', 'CO2E_DATA_SOURCE': 'CO2E_DATA_SOURCE', 'CO2E_ENERGY_SOURCE' : 'CO2E_ENERGY_SOURCE'}
+    foreign_keys = {'GENSETID':'GENSET', 'STATIONID': 'STATION', 'GENSETTYPE':'DISPATCHTYPE', 'STARTTYPE': 'STARTTYPE', 'CO2E_DATA_SOURCE': 'CO2E_DATA_SOURCE', 'CO2E_ENERGY_SOURCE' : 'CO2E_ENERGY_SOURCE'}
     data_cols = {'REGISTEREDCAPACITY': Float, "MAXCAPACITY": Float, "CO2E_EMISSIONS_FACTOR": Float, "VOLTLEVEL" : Float, 'CDINDICATOR': Boolean, 'AGCFLAG': Boolean, 'SPINNINGFLAG': Boolean, 'MKTGENERATORIND': Boolean, 'NORMALSTATUS': Boolean, 'LASTCHANGED':DateTime}
     genunits = data_table("GENUNITS", foreign_keys=foreign_keys, data_cols=data_cols, metadata=metadata)
 

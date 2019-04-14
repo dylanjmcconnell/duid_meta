@@ -135,11 +135,14 @@ def populate_dudetailsummary(engine=SQLITE):
 
 def populate_genunits(engine=SQLITE):
     df = mmsds_reader.download(dataset="genunits", y=2019, m=3)
-    cols = ['GENSETID', 'CDINDICATOR', 'AGCFLAG', 'SPINNINGFLAG',
+    cols = ['GENSETID', 'STATIONID', 'CDINDICATOR', 'AGCFLAG', 'SPINNINGFLAG',
             'VOLTLEVEL', 'REGISTEREDCAPACITY', 'STARTTYPE',
             'MKTGENERATORIND', 'NORMALSTATUS', 'MAXCAPACITY', 'GENSETTYPE',
             'LASTCHANGED', 'CO2E_EMISSIONS_FACTOR',
             'CO2E_ENERGY_SOURCE', 'CO2E_DATA_SOURCE']
+
+    df = df[~df.GENSETID.isin(["GE01","GE03","GK03","GE04","GE02","GK04","GH01","GH02","GK01","GK02"])]
+    gen_unit_map(df)
 
     for col in ['LASTCHANGED']:
         df[col] = df[col].apply(lambda x: date_parse(x))
@@ -151,8 +154,11 @@ def populate_genunits(engine=SQLITE):
     df["GENSETTYPE"] = df["GENSETTYPE"].apply(lambda x: id_key_map[x])    
 
     id_key_map = key_mapper("GENSET", "GENSETID")    
-    df["GENSETID"] = df["GENSETID"].apply(lambda x: id_key_map[x])    
+    df["GENSETID"] = df["GENSETID"].apply(lambda x: id_key_map[x])
 
+
+    id_key_map = key_mapper("STATION", "STATIONID")
+    df["STATIONID"] = df["STATIONID"].apply(lambda x: id_key_map[x])
 
     for id_table, column in {"CO2E_ENERGY_SOURCE": "CO2E_ENERGY_SOURCE",
                              "CO2E_DATA_SOURCE": "CO2E_DATA_SOURCE",
@@ -161,7 +167,27 @@ def populate_genunits(engine=SQLITE):
         df[column] = df[column].apply(lambda x: nan_parse(id_key_map,x))
 
     df[cols].to_sql("GENUNITS", con=engine, index=False, if_exists='append')
-    
+
+def gen_unit_map(df, engine=SQLITE):
+    sql = "SELECT DU.DUID, S.STATIONID FROM DUDETAILSUMMARY DS "\
+          "INNER JOIN STATION S ON S.ID = DS.STATIONID "\
+          "INNER JOIN DU ON DU.ID = DS.DUID"
+    df_map = pd.read_sql(sql, con=engine, index_col="DUID")
+    duid_station_map = df_map.to_dict(orient='dict')['STATIONID']
+
+    path = os.path.join(MODULE_DIR, "data","genunit-station-map.csv")
+    manual_map = pd.read_csv(path).set_index("GENSETID").to_dict()['STATIONID']
+    df["STATIONID"] = df["GENSETID"].apply(lambda x: map_lambda(x, manual_map, duid_station_map))
+
+def map_lambda(x, manual_map, duid_map):
+    if x in duid_map:
+        return duid_map[x]
+    elif x in manual_map:
+        return manual_map[x]
+    else:
+        print (x)
+        raise Exception ("Unmapped Genset")
+
 def date_parse(x):
     return datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
 
