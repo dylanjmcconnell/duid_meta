@@ -15,7 +15,7 @@ PATH = os.path.join(CONFIG['local_settings']['test_folder'],"testdb.db")
 SQLITE = create_engine("sqlite:///{0}".format(PATH))
 PYTHON = create_engine("mysql://{username}:{password}@{hostname}/meta?unix_socket={socket}".format(**CONFIG['python_sql']))
 
-legacy = create_engine("mysql://{username}:{password}@{hostname}/nemweb_meta?unix_socket={socket}".format(**CONFIG['basic_sql']
+legacy = create_engine("mysql://{username}:{password}@{hostname}/nemweb_meta?unix_socket={socket}".format(**CONFIG['basic_sql']))
 
 npi_map_path = os.path.join(MODULE_DIR, "data","duid_to_npi_fid.csv")
 npi_map = pd.read_csv(npi_map_path)
@@ -213,9 +213,7 @@ def select_meta(engine=legacy):
               "ON NT.DUID = F.ID"
     return pd.read_sql(sql, con=legacy)
     
-def file_upload(d, client):
-    #keyname="{0}.json".format(d['stationid'])
-    keyname = "generator_registry.json"
+def file_upload(d, client, keyname="generator_registry.json"):
     json_str = simplejson.dumps(d, ignore_nan=True).encode()
     string_buffer = BytesIO(json_str)
     gz_buffer = stream_to_gzip(string_buffer)
@@ -238,7 +236,8 @@ def upload_all(client):
     df = select_meta()
     for i in s.STATIONID:
         d = load_station(df, stationid=i)
-        file_upload(d, client)
+        keyname="{0}.json".format(d['stationid'])
+        file_upload(d, client, keyname)
         print (i)
 
 def upload_master(client):
@@ -248,7 +247,7 @@ def upload_master(client):
     for i in s.STATIONID:
         d[i] = load_station(df, stationid=i)
         print (i)
-    file_upload(d, client)
+    file_upload(d, client, keyname="generator_registry.json")
 
 def stream_to_gzip(json_buffer):
     json_buffer.seek(0)
