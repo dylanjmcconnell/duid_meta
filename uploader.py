@@ -255,16 +255,18 @@ def file_upload(d, client, keyname="generator_registry.json"):
                             file_key,
                             ExtraArgs = metadata)
 
-def upload_all(client):
+def upload_all():
+    client = aws_client()
     s = load_all_stations()
     df = select_meta()
     for i in s.STATIONID:
         d = load_station(df, stationid=i)
-        keyname="{0}.json".format(d['stationid'])
+        keyname="{0}.json".format(d['station_id'])
         file_upload(d, client, keyname)
         print (i)
 
-def upload_master(client):
+def upload_master():
+    client = aws_client()
     s = load_all_stations()
     df = select_meta()
     d = {}
@@ -285,3 +287,4 @@ def aws_client():
     client = boto3.client('s3', 
                           aws_access_key_id = aws_settings['aws_access_key_id'],
                           aws_secret_access_key=aws_settings['aws_secret_access_key'])
+    return client
