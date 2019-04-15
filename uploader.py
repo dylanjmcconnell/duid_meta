@@ -34,6 +34,28 @@ def load_alias_map(engine=SQLITE):
               "ON S.ID = SA.STATIONID"
     return pd.read_sql(sql, con=engine)
 
+COLUMN_NAMES = {"STATIONAMES"           : "station_name",
+                "STARTTYPE"             : "start_type",
+                "REGISTEREDCAPACITY"    : "registered_capacity",
+                "MAXCAPACITY"           : "max_capacity",
+                "DISTRIBUTIONLOSSFACTOR": "distribution_loss_factor",
+                "TRANSMISSIONLOSSFACTOR": "transmission_loss_factor",
+                "DISPATCHTYPE"          : "dispatch_type",
+                "VOLTLEVEL"             : "volt_level",
+                "STATIONID"             : "station_id",
+                "REGIONID"              : "region_id",
+                "CONNECTIONPOINTID"     : "connection_point_id",
+                "DISPLAYNAME"           : "display_name",
+                "STATIONNAME"           : "station_name",
+                "CO2E_ENERGY_SOURCE"    : 'co2e_energy_source',
+                "CO2E_DATA_SOURCE"      : 'co2e_data_source',
+                "CO2E_EMISSIONS_FACTOR" : 'co2e_emissions_factor',
+                'MAX_RAMP_RATE_DOWN'    : 'max_ramp_rate_down',
+                'MAX_RAMP_RATE_UP'      : 'max_ramp_rate_up',
+                'MIN_RAMP_RATE_DOWN'    : 'min_ramp_rate_down',
+                'MIN_RAMP_RATE_UP'      : 'min_ramp_rate_up',
+                'SCHEDULE_TYPE'         : 'schedule_type'}
+
 def load_all_stations(engine=SQLITE):
     sql = "SELECT * FROM STATION"
     df = pd.read_sql(sql, con=engine)
@@ -48,7 +70,7 @@ def load_station(df_fuel_tech, stationid="BAYSW", engine=SQLITE):
     station_df = pd.read_sql(station_sql, con=engine)
     station_data = station_df.to_dict(orient="rows")[0]
 
-    station_dict = {key.lower(): station_data[key] for key in ['STATIONID', 'STATIONNAME', 'DISPLAYNAME']}
+    station_dict = {COLUMN_NAMES[key]: station_data[key] for key in ['STATIONID', 'STATIONNAME', 'DISPLAYNAME']}
     station_dict['location'] = {key.lower(): station_data[key] for key in ['STATE', 'POSTCODE', 'LATITUDE', 'LONGITUDE']}
 
     ds = load_dudetailsummary(stationid=stationid, engine=engine)
@@ -63,11 +85,12 @@ def load_station(df_fuel_tech, stationid="BAYSW", engine=SQLITE):
     duid_data = latest[uniq_cols].copy()
     for col in ['DISPATCHTYPE', 'SCHEDULE_TYPE', 'STARTTYPE']:
         duid_data[col] = duid_data[col].apply(str.lower)
-    duid_data.rename(columns = {col:col.lower() for col in uniq_cols}, inplace=True)
+    duid_data.rename(columns = COLUMN_NAMES, inplace=True)
     station_dict['duid_data'] = duid_data.to_dict(orient='index')
 
     du_station_data = latest[station_cols].drop_duplicates()
     try:
+        du_station_data.rename(columns = COLUMN_NAMES, inplace=True)
         du_station_dict = du_station_data.to_dict(orient="rows")[0]
         station_dict.update({key.lower(): meta_lower(key, du_station_dict[key]) for key in du_station_dict})
     except:
@@ -76,8 +99,7 @@ def load_station(df_fuel_tech, stationid="BAYSW", engine=SQLITE):
 
     dg= load_genunits(stationid=stationid, engine=engine)
     genset_data = dg[['MAXCAPACITY', 'REGISTEREDCAPACITY', 'VOLTLEVEL', 'CO2E_DATA_SOURCE', 'CO2E_ENERGY_SOURCE', 'CO2E_EMISSIONS_FACTOR']].copy()
-    genset_data.rename(columns={col:col.lower() for col in genset_data}, inplace=True)
-
+    genset_data.rename(columns=COLUMN_NAMES, inplace=True)
 
     for duid in station_dict['duid_data']:
         duid_ft = df_fuel_tech[df_fuel_tech.duid==duid]
@@ -122,7 +144,7 @@ def load_station(df_fuel_tech, stationid="BAYSW", engine=SQLITE):
             ft_unique = duid_ft.fuel_tech.unique()
             station_dict['duid_data'][duid].update({"fuel_tech": ft_unique[-1]})
 
-    genset_data = genset_data[['maxcapacity', 'registeredcapacity', 'voltlevel', 'co2e_data_source', 'co2e_emissions_factor']]
+    genset_data = genset_data[['max_capacity', 'registered_capacity', 'volt_level', 'co2e_data_source', 'co2e_emissions_factor']]
     for genset, data in genset_data.iterrows():
         if genset in station_dict['duid_data']:
             station_dict['duid_data'][genset].update(data.to_dict())
