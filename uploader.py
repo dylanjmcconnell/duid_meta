@@ -178,11 +178,13 @@ def load_operating_status(stationid="HAZEL", engine=SQLITE):
     df = pd.read_sql(sql.format(stationid), con=engine)
 
     latest = df.EFFECTIVEDATE.max()
+    latest_dt = datetime.datetime.strptime(latest[:-9], "%Y/%m/%d")
     status = df[df.EFFECTIVEDATE == latest]
     if status.STATUS.values[0]=="DECOMMISSIONED":
-        return "Decommissioned ({0})".format(latest[:-9])
+        return {"state":"Decommissioned",
+                "date" : str(latest_dt.date())}
     else:
-        return "Commissioned"
+        return {"state": "Commissioned"}
 
 def load_genunits(stationid="BAYSW", engine=SQLITE):
     sql = "SELECT GS.GENSETID, CE.CO2E_ENERGY_SOURCE, CD.CO2E_DATA_SOURCE, "\
