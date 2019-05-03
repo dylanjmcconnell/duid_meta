@@ -25,10 +25,10 @@ def url_generator(dataset='dudetail', y=2019, m=2):
     link = base_url+datasets[dataset]['link']
     return link.format(y,m)
 
-def download(dataset='dudetail', y=2018,m=1):
+def download(dataset='dudetail', y=2019,m=2):
     """Dowloads nemweb zipfile from link into memory as a byteIO object.
     nemfile object is returned from the byteIO object """
-    link = url_generator(dataset=dataset, y=2018, m=1)
+    link = url_generator(dataset=dataset, y=y, m=m)
     response = requests.get(link)
     zip_bytes = BytesIO(response.content)
     nemfile = nemfile_reader.nemzip_reader(zip_bytes)
