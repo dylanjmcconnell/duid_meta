@@ -38,7 +38,7 @@ def populate_stations(engine=SQLITE):
     state_keys = pd.read_sql("SELECT STATE as _KEY, ID FROM STATE UNION SELECT STATENAME as _KEY, ID FROM STATE", con=engine, index_col="_KEY")
     key_map = state_keys.to_dict(orient='dict')['ID']
 
-    df = mmsds_reader.download(dataset="station", y=2019, m=3)
+    df = mmsds_reader.download(dataset="station", y=2019, m=2)
     df.STATE = df.STATE.apply(lambda x: key_map[x])
     for string in ['COOMA', 'BRISBANE', 'ADELAIDE', 'PORTLAND']:
         df.loc[df.POSTCODE==string, "POSTCODE"] = pd.np.nan
@@ -109,7 +109,7 @@ def populate_substance_ids(engine=SQLITE):
     df.to_sql("SUBSTANCE", con=engine, index=False, if_exists='append')
 
 def populate_dudetailsummary(engine=SQLITE):
-    df = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=3)
+    df = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=2)
     cols = ['DUID',  'REGIONID', 'STATIONID', 'PARTICIPANTID', 'CONNECTIONPOINTID', 
             'DISPATCHTYPE', 'SCHEDULE_TYPE', 'STARTTYPE',  
             'TRANSMISSIONLOSSFACTOR', 'DISTRIBUTIONLOSSFACTOR', 
@@ -130,11 +130,11 @@ def populate_dudetailsummary(engine=SQLITE):
         df[column] = df[column].apply(lambda x: id_key_map[x])    
 
     id_key_map = key_mapper("STARTTYPE", "STARTTYPE")
-    df['STARTTYPE'] = df['STARTTYPE'].apply(lambda x: nan_parse(id_key_map, x))   
+    df['STARTTYPE'] = df['STARTTYPE'].apply(lambda x: nan_parse(id_key_map, x))
     df[cols].to_sql("DUDETAILSUMMARY", con=engine, index=False, if_exists='append')
 
 def populate_genunits(engine=SQLITE):
-    df = mmsds_reader.download(dataset="genunits", y=2019, m=3)
+    df = mmsds_reader.download(dataset="genunits", y=2019, m=2)
     cols = ['GENSETID', 'STATIONID', 'CDINDICATOR', 'AGCFLAG', 'SPINNINGFLAG',
             'VOLTLEVEL', 'REGISTEREDCAPACITY', 'STARTTYPE',
             'MKTGENERATORIND', 'NORMALSTATUS', 'MAXCAPACITY', 'GENSETTYPE',
@@ -177,6 +177,7 @@ def gen_unit_map(df, engine=SQLITE):
 
     path = os.path.join(MODULE_DIR, "data","genunit-station-map.csv")
     manual_map = pd.read_csv(path).set_index("GENSETID").to_dict()['STATIONID']
+
     df["STATIONID"] = df["GENSETID"].apply(lambda x: map_lambda(x, manual_map, duid_station_map))
 
 def map_lambda(x, manual_map, duid_map):
@@ -189,7 +190,10 @@ def map_lambda(x, manual_map, duid_map):
         raise Exception ("Unmapped Genset")
 
 def date_parse(x):
-    return datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
+    dt = datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
+    if dt.year == 2999:
+        dt=dt.replace(year=2100)
+    return dt
 
 def nan_parse(id_key_map, x):
     try: 
@@ -198,7 +202,7 @@ def nan_parse(id_key_map, x):
         return x
 
 def populate_duid_table(engine=SQLITE):
-    df_ds = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=3)
+    df_ds = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=2)
 
     #all duids
     duid_key_map = key_mapper("FULL_REGISTER", "DUID", engine=legacy) 
@@ -216,7 +220,7 @@ def populate_duid_table(engine=SQLITE):
 
 def populate_genset_table(engine=SQLITE):
     # could be added to genunit create
-    df_g = mmsds_reader.download(dataset="genunits", y=2019, m=3)
+    df_g = mmsds_reader.download(dataset="genunits", y=2019, m=2)
 
     #all duids 
     duid_key_map = key_mapper("FULL_REGISTER", "DUID", engine=legacy) 

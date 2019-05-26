@@ -96,7 +96,7 @@ CALLIDE C NETT OFF,Callide C
 Redbank Power Station,Redbank
 Bairnsdale Power Station,Bairnsdale
 Millmerran Power Plant,Millmerran
-Jacks Gully Landfill Gas Power Station,Jacks Gully LFG
+Jacks Gully Landfill Gas Power Station,Jacks Gully
 Murray Power Station,Murray
 Rocky Point Cogeneration Plant,Rocky Point Co-gen
 Pindari Hydro Power Station,Pindari
@@ -107,25 +107,25 @@ Hallett Power Station,Hallett
 Somerton Power Station,Somerton
 SUNSHINE ENERGY,Sunshine Energy
 HRL TRAMWAY ROAD,HRL Tramway Road
-West Nowra Landfill Gas Power Generation Facility,West Nowra LFG
+West Nowra Landfill Gas Power Generation Facility,West Nowra
 TOORA WIND FARM,Toora
-Brooklyn LFG U1-3,Brooklyn LFG
-Eastern Creek LFG PS Units 1-4,Eastern Creek LFG
+Brooklyn LFG U1-3,Brooklyn
+Eastern Creek LFG PS Units 1-4,Eastern Creek
 LONGFORD PLANT,Longford
 STAPYLTON,Stapylton
 Tarong North Power Station,Tarong North
 WIVENHOE SMALL HYDRO,Wivenhoe (Mini Hydro)
 Mornington Waste Disposal Facility,Mornington Waste Disposal
-Wyndham Waste Disposal Facility,Wyndham LFG
+Wyndham Waste Disposal Facility,Wyndham
 EarthPower Biomass Plant,Earthpower Biomass
 Suncoast Gold Macadamias,Suncoast Gold Macadamias
 Terminal Storage Mini Hydro Power Station,Terminal Storage (Mini Hydro)
 SOMERSET DAM,Somerset Dam
 Lake Bonney Wind Farm Stage 1,Lake Bonney  1
 TERALBA POWER STATION,Teralba
-Roghan Road LFG Power Plant,Roghan Road LFG
-Rochedale Renewable Energy Facility,Rochedale RE Facility
-Whitwood Road Renewable Energy Facility,Whitwood Road RE Facility
+Roghan Road LFG Power Plant,Roghan Road
+Rochedale Renewable Energy Facility,Rochedale
+Whitwood Road Renewable Energy Facility,Whitwood Road
 Lucas Heights 2 Power Station,Lucas Heights 2
 ANGASTON POWER STATION,Angaston
 Wattle Point Wind Farm,Wattle Point
@@ -170,12 +170,12 @@ Bell Bay Three Power Station,Bell Bay Three
 Oaky Creek Power Station,Oaky Creek
 Tatura Biomass Generator,Tatura Biomass
 German Creek Power Station,German Creek
-Grange Avenue Landfill Gas Power Station,Grange Avenue LFG
+Grange Avenue Landfill Gas Power Station,Grange Avenue
 Remount Power Station,Remount
 Daandine Power Station,Daandine
 Awaba Power Station,Awaba
 ISIS Central Sugar Mill Co-generation Plant,Isis Central Sugar Mill
-Moranbah Generation Project,Moranbah Generation Project
+Moranbah Generation Project,Moranbah
 KRC Cogeneration Plant Power Station,KRC Co-gen
 Kogan Creek Power Station,Kogan Creek
 Lake Bonney Stage 2 Windfarm,Lake Bonney 2
@@ -190,8 +190,8 @@ Eraring Power Station,Eraring
 Hunter Economic Zone Power Station,Hunter Economic Zone
 Tallawarra Power Station,Tallawarra
 Uranquinty Power Station,Uranquinty
-Moranbah North Waste Coal Mine Gas Power Station,Moranbah North WCMG
-South East Water - Halllam Hydro Plant,South East Water - Halllam
+Moranbah North Waste Coal Mine Gas Power Station,Moranbah North
+South East Water - Halllam Hydro Plant,Hallam
 Veolia Ti Tree Bio Reactor,Veolia Ti Tree Bio Reactor
 Shepparton Wastewater Treatment Facility,Shepparton Wastewater Treatment
 Ballarat Base Hospital Plant,Ballarat Hospital
@@ -212,12 +212,12 @@ Burrendong Hydro Power Station,Burrendong
 Copeton Hydro Power Station,Copeton
 Glenbawn Hydro Power Station,Glenbawn
 Yarrawonga Hydro Power Station,Yarrawonga
-Eastern Creek 2 Gas Utilisation Facility,Eastern Creek LFG
+Eastern Creek 2 Gas Utilisation Facility,Eastern Creek 2
 Wilga Park Power Station,Wilga Park
 Appin Power Plant,Appin
 Berwick Power Plant,Berwick
-Broadmeadows Landfill Gas Power Station,Broadmeadows LFG
-Clayton Landfill Gas Power Station,Clayton LFG
+Broadmeadows Landfill Gas Power Station,Broadmeadows
+Clayton Landfill Gas Power Station,Clayton
 Lucas Heights II Power Plant,Lucas Heights 2
 Tower Power Plant,Tower
 Glennies Creek Power Station,Glennies Creek
@@ -233,9 +233,9 @@ North Brown Hill Wind Farm,North Brown Hill
 Bankstown Sports Club Plant Units,Bankstown Sports Club
 Waterloo Wind Farm,Waterloo
 Nine Network Willoughby Plant,Willoughby
-St George Leagues Plant,St George Leagues
+St George Leagues Plant,St George Leagues Club
 Tataria Bordertown Plant,Tataria Bordertown
-Pt Stanvac Power Station,Pt Stanvac
+Pt Stanvac Power Station,Port Stanvac
 Valley Power Peaking Facility,Valley  Peaking
 Gunning Wind Farm,Gunning
 Woodlawn Wind Farm,Woodlawn
@@ -244,26 +244,26 @@ The Bluff Wind Farm,The Bluff
 Mortlake Power Station,Mortlake
 Oaklands Hill Wind Farm,Oaklands Hill
 Victoria Mill,Victoria Mill
-HALLAM ROAD RENEWABLE ENERGY FACILITY,Hallam Road RE Facility
+HALLAM ROAD RENEWABLE ENERGY FACILITY,Hallam Road
 Blue Lake Milling Power Plant,Blue Lake Milling
-Browns Plains Landfill Gas PS,Browns Plains LFG
+Browns Plains Landfill Gas PS,Browns Plains
 Macarthur Wind Farm,Macarthur
 Racecourse Mill Power Station,Racecourse Mill
 Mortons Lane Wind Farm,Mortons Lane
 Musselroe Wind Farm,Musselroe
 The Drop Power Station,The Drop
-Highbury Landfill Gas Power Station,Highbury LFG
-Pedler Creek Landfill Gas Power Station Units 1-3,Pedler Creek LFG
-Wingfield 1 Landfill Gas Power Station,Wingfield 1 LFG
-Tea Tree Gully Landfill Gas Power Station,Tea Tree Gully LFG
-Wingfield 2 Landfill Gas Power Station,Wingfield 2 LFG
-Wollert Renewable Energy Facility,Wollert RE Facility
+Highbury Landfill Gas Power Station,Highbury
+Pedler Creek Landfill Gas Power Station Units 1-3,Pedler Creek
+Wingfield 1 Landfill Gas Power Station,Wingfield 1
+Tea Tree Gully Landfill Gas Power Station,Tea Tree Gully
+Wingfield 2 Landfill Gas Power Station,Wingfield 2
+Wollert Renewable Energy Facility,Wollert
 Traralgon Network Support Station,Traralgon Network Support
-Corio Landfill Gas Power Station,Corio LFG
+Corio Landfill Gas Power Station,Corio
 Capital East Solar Farm,Capital East
 Snowtown South Wind Farm,Snowtown South
 Snowtown Wind Farm Stage 2 North,Snowtown North
-Springvale Landfill Gas Power Station,Springvale LFG
+Springvale Landfill Gas Power Station,Springvale
 Mt Mercer Wind Farm,Mt Mercer
 Gullen Range Wind Farm,Gullen Range
 Glenmaggie Hydro Power Station,Glenmaggie
@@ -271,16 +271,16 @@ Eildon Power Station,Eildon
 William Hovell Power Station,William Hovell
 Midlands Power Station,Midlands
 Royalla Solar Farm,Royalla
-Woy Woy Landfill Site,Woy Woy LFG
+Woy Woy Landfill Site,Woy Woy
 Wilga Park B,Wilga Park B
-Kincumber Landfill Site,Kincumber LFG
+Kincumber Landfill Site,Kincumber
 Boco Rock Wind Farm,Boco Rock
 Taralga Wind Farm,Taralga
 Nyngan Solar Plant,Nyngan
 SA Water Bolivar Waste Water Treatment (WWT) Plant,Bolivar Waste Water Treatment
 Bald Hills Wind Farm,Bald Hills
 Chepstowe Wind Farm,Chepstowe
-Tahmoor Waste Coal Mine Gas Power Station,Tahmoor WCMG
+Tahmoor Waste Coal Mine Gas Power Station,Tahmoor
 Broken Hill Solar Plant,Broken Hill
 MOREE SOLAR FARM,Moree
 Coonoer Bridge Wind Farm,Coonoer Bridge
@@ -292,14 +292,14 @@ Bell Bay Power Station,Bell Bay
 Hornsdale Wind Farm,Hornsdale
 Ararat Wind Farm,Ararat
 Mugga Lane Solar Park,Mugga Lane
-AGL KEMPS CREEK,AGL Kemps Creek
+AGL KEMPS CREEK,Kemps Creek
 Barcaldine Solar Farm,Barcaldine
-Grosvenor 1 Waste Coal Mine Gas Power Station,Grosvenor 1 WCMG
+Grosvenor 1 Waste Coal Mine Gas Power Station,Grosvenor 1
 Hornsdale Wind Farm 2,Hornsdale  2
 SCSF,SCSF
 White Rock Wind Farm,White Rock
-Stapylton Renewable Energy Facility,Stapylton RE Facility
-Melbourne Regional Landfill,Melbourne Regional LFG
+Stapylton Renewable Energy Facility,Stapylton
+Melbourne Regional Landfill,Melbourne Regional
 Hornsdale Wind Farm 3,Hornsdale  3
 Grosvenor 2,Grosvenor 2
 Temporary Generation North,Temporary Generation North
@@ -337,7 +337,7 @@ Lincoln Gap Wind Farm,Lincoln Gap
 Longreach Solar Farm,Longreach
 Manildra solar Farm,Manildra
 Mortons Lane Wind Farm,Mortons Lane
-Mount Emerald Wind Farm,Mount Emerald
+Mount Emerald Wind Farm,Mt Emerald
 Mt Gellibrand Wind Farm,Mt Gellibrand
 Murra Warra Wind Farm,Murra Warra
 Narromine Solar Farm,Narromine
