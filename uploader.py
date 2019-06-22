@@ -6,7 +6,7 @@ import shutil
 import pandas as pd
 import datetime
 import os
-from duid_meta import CONFIG, MODULE_DIR, mmsds_reader, display_names, npi
+from duid_meta import CONFIG, MODULE_DIR, mmsds_reader, display_names
 from sqlalchemy import create_engine
 
 aws_settings = CONFIG['aws_settings']
@@ -16,12 +16,6 @@ SQLITE = create_engine("sqlite:///{0}".format(PATH))
 PYTHON = create_engine("mysql://{username}:{password}@{hostname}/meta?unix_socket={socket}".format(**CONFIG['python_sql']))
 
 legacy = create_engine("mysql://{username}:{password}@{hostname}/nemweb_meta?unix_socket={socket}".format(**CONFIG['basic_sql']))
-
-npi_map_path = os.path.join(MODULE_DIR, "data","duid_to_npi_fid.csv")
-npi_map = pd.read_csv(npi_map_path)
-
-path = os.path.join(MODULE_DIR, "data","npi_data.csv")
-df_npi = pd.read_csv(path)
 
 latlon_path = os.path.join(MODULE_DIR, "data","latlon.csv")
 df_latlon = pd.read_csv(latlon_path)
@@ -225,15 +219,6 @@ def load_genunits(stationid="BAYSW", engine=SQLITE):
           #"G.MAXCAPACITY, G.CO2E_EMISSIONS_FACTOR, G.VOLTLEVEL "\
           #"INNER JOIN CO2E_DATA_SOURCE CD ON CD.ID = G.CO2E_DATA_SOURCE "\
     return pd.read_sql(sql.format(stationid), con=engine, index_col = "GENSETID")
-
-def npi_data(duid="HWPS1"):
-    f_id = npi_map[npi_map.DUID == duid].npi_facility_id.values[0]
-    f_data = df_npi[df_npi.facility_id == f_id]
-    year = f_data.report_year.max()
-    d=f_data[f_data.report_year==year]
-    return year, d[['substance_name', 'air_point_emission_kg',
-       'air_fugitive_emission_kg', 'air_total_emission_kg',
-       'water_emission_kg', 'land_emission_kg']]
 
 def select_meta(engine=legacy):
     #df_fuel_tech?
