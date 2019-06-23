@@ -1,4 +1,5 @@
 import simplejson
+import yaml
 import boto3
 from io import BytesIO
 import gzip
@@ -20,6 +21,8 @@ legacy = create_engine("mysql://{username}:{password}@{hostname}/nemweb_meta?uni
 latlon_path = os.path.join(MODULE_DIR, "data","latlon.csv")
 df_latlon = pd.read_csv(latlon_path)
 
+with open(os.path.join(MODULE_DIR, "data", "fueltech_override.yml"), 'r') as ymlfile:
+    FUELTECH_OVERRIDE = yaml.safe_load(ymlfile)
 
 def load_full_reg_stations():
     sql = "SELECT * FROM FULL_REGISTER"
@@ -561,47 +564,9 @@ def manual_station(d={}):
     return d
 
 def landfil_gas(sd):
-    duids = [
-    "AGLSITA1",
-    "KINCUM1",
-    "AGLNOW1",
-    "WOYWOY1",
-    "EASTCRK",
-    "GRANGEAV",
-    "JACKSGUL",
-    "LUCAS2S2",
-    "LUCASHGT",
-    "BPLANDF1",
-    "WINGF1_1",
-    "WINGF2_1"
-    "BROADMDW",
-    "BROOKLYN",
-    "BROOKLYN",
-    "BROOKLYN",
-    "CLAYTON",
-    "CORIO1",
-    "SVALE1",
-    "MORNW",
-    "WDLNGN01",
-    "WDLNGN01",
-    "WYNDW",
-    "HALAMRD1",
-    "REMOUNT",
-    "STAPYLTON1",
-    "STAPYLTON1",
-    "STAPYLTON1",
-    "WOLLERT1",
-    "ROCHEDAL",
-    "WHIT1",
-    "TITREE",
-    "BWTR1",
-    "CONDONG1",
-    "EDLRGNRD",
-    "WINGF2_1",
-    "BROADMDW"]
     for station_id, station in sd.items():
         for duid, duid_data in station['duid_data'].items():
-            if duid in duids:
+            if duid in FUELTECH_OVERRIDE['gas_lfg']:
                 duid_data.update({'fuel_tech': "gas_lfg"})
 
 def incorrect(sd):
