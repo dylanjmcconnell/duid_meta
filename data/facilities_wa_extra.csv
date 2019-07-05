@@ -1,0 +1,113 @@
+Facility Code,Station Name,Display Name,Postcode,Postcode,Latitude,Longitude,Maximum Capacity (MW),Fuel Tech,2nd Fuel,3rd Fuel,State
+ALBANY_WF1,ALBANY,Albany Wind Farm,WA,6330,-35.0658354,117.7975063,21.6,wind,,,Commissioned
+GRASMERE_WF1,GRASMERE,Grasmere Wind Farm,WA,6330,-35.0658354,117.7975063,13.8,wind,,,Commissioned
+ALCOA_KW_IL,ALCOA_KW_IL,Alcoa Kwinana Refinery,WA,6165,-32.1905786,115.7783316,,industrial_load,,,Commissioned
+ALCOA_PNJ_IL,ALCOA_PNJ_IL,Aloca Pinjarra Alumina Refinery,WA,6208,-32.6422483,115.9464066,,industrial_load,,,Commissioned
+ALCOA_WGP,ALCOA_WGP,Alcoa Wagerup Power Station,WA,6215,-32.9043187,115.9204307,26,gas_ocgt,,,Commissioned
+ALCOA_WGP_IL,ALCOA_WGP_IL,Aloca Wagerup Alumina Refinery,WA,6215,-32.9043187,115.9204307,,industrial_load,,,Commissioned
+ALINTA_PNJ_U1,ALINTA_PNJ,Pinjara Power Station,WA,6208,-32.6471604,115.9468512,143,gas_ocgt,,,Commissioned
+ALINTA_PNJ_U2,ALINTA_PNJ,Pinjara Power Station,WA,6208,-32.6471604,115.9468512,143,gas_ocgt,,,Commissioned
+ALINTA_WGP_GT,ALINTA_WGP,Wagerup Power Station,WA,6215,-32.9043187,115.9204307,195.152,gas_ocgt,distillate,,Commissioned
+ALINTA_WGP_U2,ALINTA_WGP,Wagerup Power Station,WA,6215,-32.9043187,115.9204307,196.848,gas_ocgt,distillate,,Commissioned
+ALINTA_WWF,ALINTA_WWF,Walkaway Wind Farm,WA,6528,-28.9024923,114.8927165,89.1,wind,,,Commissioned
+BADGINGARRA_WF1,BADGINGARRA,Badgingarra Wind Farm,WA,6521,-30.4399239,115.3240452,130,wind,,,Commissioned
+AMAUST_DSP_01,AMAUST_DSP_01,Amanda Australia Demand Side Management 1,WA,6159,,,,dsm,,,
+AMAUST_DSP_02,AMAUST_DSP_02,Amanda Australia Demand Side Management 2,WA,6159,,,,dsm,,,
+ADERRTL_DSP_01,ADERRTL_DSP_01,Amanda Energy Demand Side Management,WA,6159,,,,dsm,,,
+BAICOMMS_DSP_01,BAICOMMS_DSP_01,Broadcast Australia Demand Side Management,WA,6022,,,,dsm,,,
+BLAIRFOX_KARAKIN_WF1,BLAIRFOX_KARAKIN,Karakin Wind Farm,WA,6044,-30.9422424,115.3666128,5,wind,,,Commissioned
+BLAIRFOX_WESTHILLS_WF3,BLAIRFOX_WESTHILLS,West Hills Wind Farm,WA,6507,-30.8581035,115.4632611,5,wind,,,Commissioned
+CCL_DSP_01,CCL_DSP_01,Cockburn Cement Demand Side Management,WA,6166,,,,dsm,,,
+INVESTEC_COLLGAR_WF1,INVESTEC_COLLGAR,Collgar Wind Farm,WA,6415,-31.59751,118.490597,206,wind,,,Commissioned
+BIOGAS01,BIOGAS01,CleanTech Bioenegy Plant,WA,6164,-32.103786,115.895771,2,gas_biogas,,,Commissioned
+DCWL_DENMARK_WF1,DCWL_DENMARK,Denmark Community Windfarm,WA,6333,-35.0369706,117.3190123,1.44,wind,,,Commissioned
+EDWFMAN_WF1,EDWFMAN,Emu Downs Wind Farm,WA,6521,-30.4756469,115.3790523,80,wind,,,Commissioned
+ALINTA_DSP_01,ALINTA_DSP_01,Alinta Demand Side Management,WA,6000,,,,dsm,,,
+ALINTA_DSP_02,ALINTA_DSP_02,Alinta Demand Side Management,WA,6000,,,,dsm,,,
+ALINTA_DSP_03,ALINTA_DSP_03,Alinta Demand Side Management,WA,6000,,,,dsm,,,
+ALINTA_DSP_05,ALINTA_DSP_05,Alinta Demand Side Management,WA,6000,,,,dsm,,,
+ENERNOC_DSP_01,ENERNOC_DSP_01,Enernoc Demand Side Management,WA,6000,,,,dsm,,,
+ENERNOC_DSP_02,ENERNOC_DSP_02,Enernoc Demand Side Management,WA,6000,,,,dsm,,,
+ENERNOC_DSP_03,ENERNOC_DSP_03,Enernoc Demand Side Management,WA,6000,,,,dsm,,,
+ENERNOC_DSP_04,ENERNOC_DSP_04,Enernoc Demand Side Management,WA,6000,,,,dsm,,,
+ENERNOC_DSP_05,ENERNOC_DSP_05,Enernoc Demand Side Management,WA,6000,,,,dsm,,,
+KANOWNA_DSP_01,KANOWNA_DSP_01,Kanowna Demand Side Management,WA,6000,,,,dsm,,,
+LAMANCHA_DSP_01,LAMANCHA_DSP_01,Lamancha Demand Side Management,WA,6000,,,,dsm,,,
+PRK_AG,PRK_AG,Parkeston Power Plant,WA,6434,-30.7380093,121.5062638,68,gas_ocgt,distillate,,Commissioned
+GREENOUGH_RIVER_PV1,GREENOUGH_RIVER,Greenough River Solar Farm,WA,6532,-28.9038103,115.1093701,10,solar,,,Commissioned
+BW2_BLUEWATERS_G1,BLUEWATERS,Bluewaters Power Station,WA,6225,-33.3306742,116.2259578,217,black_coal,,,Commissioned
+BW1_BLUEWATERS_G2,BLUEWATERS,Bluewaters Power Station,WA,6225,-33.3306742,116.2259578,217,black_coal,,,Commissioned
+GRIFFINP_DSP_01,GRIFFINP_DSP_01,Griffin Power Demand Side Management,WA,6225,,,,dsm,,,
+KALAMUNDA_SG,KALAMUNDA_SG,Kalamunda Landfill Gas,WA,6076,-32.0032923,116.0748853,1.3,gas_lfg,,,Commissioned
+RED_HILL,RED_HILL,Red Hill Landfill Gas,WA,6056,-31.8306285,116.1008881,3.64,gas_lfg,,,Commissioned
+TAMALA_PARK,TAMALA_PARK,Tamala Park Landfill Gas,WA,6030,-31.7061983,115.7257344,4.8,gas_lfg,,,Commissioned
+SKYFRM_MTBARKER_WF1,SKYFRM_MTBARKER,Mount Barker Community Wind Farm,WA,6324,-34.6011629,117.6439045,2.43,wind,,,Commissioned
+NAMKKN_MERR_SG1,NAMKKN_MERR,Merredin Power Station,WA,6415,-31.5426501,118.2268664,92.6,gas_ocgt,,,Commissioned
+AMBRISOLAR_PV1,AMBRISOLAR,Metro Power Solar,WA,6163,-32.1033849,115.8084562,0.96,solar,,,Commissioned
+MWF_MUMBIDA_WF1,MWF_MUMBIDA,Mumbida Wind Farm,WA,6532,-29.0110631,114.9662285,55,wind,,,Commissioned
+NEWGEN_KWINANA_CCG1,NEWGEN_KWINANA,NewGen Kwinana Power Station,WA,6165,-32.201951,115.773172,335,gas_ccgt,,,Commissioned
+NEWGEN_NEERABUP_GT1,NEWGEN_NEERABUP,Neerabup Power Station,WA,6031,-31.6711775,115.7988503,342,gas_ocgt,distillate,,Commissioned
+NORTHAM_SF_PV1,NORTHAM_SF,Northam Solar Farm,WA,6401,-31.6516099,116.7115411,7.753,solar,,,Commissioned
+NWNMTMN_FIM_INML1,NWNMTMN_FIM_INML1,Newmont Goldcorp,WA,6390,,,,industrial_load,,,
+ATLAS,ATLAS,Mirrabooka (Atlas) Landfill Gas,WA,6021,-31.8644574,115.8182949,0,gas_lfg,,,Commissioned
+GOSNELLS,GOSNELLS,Gosnells Landfill Gas,WA,6155,-32.0795137,115.895088,0,gas_lfg,,,Commissioned
+ROCKINGHAM,ROCKINGHAM,Rockingham Landfill Gas,WA,6170,-32.2875384,115.8158851,4,gas_lfg,,,Commissioned
+SOUTH_CARDUP,SOUTH_CARDUP,South Cardup Landfill Gas,WA,6122,-32.26642,116.019263,4.158,gas_lfg,,,Commissioned
+WAPL_WORSLEY_IL1,WAPL_WORSLEY_IL1,Worsley Alumia Plant,WA,6225,-33.24238,116.0707283,,industrial_load,,,Commissioned
+PREMPWR_DSP_01,PREMPWR_DSP_01,Wesfarmers Kleenheat Gas Demand Side Management,WA,6000,,,,dsm,,,
+PREMPWR_DSP_02,PREMPWR_DSP_02,Wesfarmers Kleenheat Gas Demand Side Management,WA,6000,,,,dsm,,,
+PREMPWR_DSP_03,PREMPWR_DSP_03,Wesfarmers Kleenheat Gas Demand Side Management,WA,6000,,,,dsm,,,
+PREMPWR_DSP_04,PREMPWR_DSP_04,Wesfarmers Kleenheat Gas Demand Side Management,WA,6000,,,,dsm,,,
+PREMPWR_DSP_05,PREMPWR_DSP_05,Wesfarmers Kleenheat Gas Demand Side Management,WA,6000,,,,dsm,,,
+PREMPWR_DSP_06,PREMPWR_DSP_06,Wesfarmers Kleenheat Gas Demand Side Management,WA,6000,,,,dsm,,,
+PREMPWR_DSP_07,PREMPWR_DSP_07,Wesfarmers Kleenheat Gas Demand Side Management,WA,6000,,,,dsm,,,
+STHRNCRS_EG,STHRNCRS,Southern Cross Power Station (Kambalda),WA,6442,-31.1919033,121.6719012,23,gas_ocgt,distillate,,Commissioned
+STHRNCRS_IL,STHRNCRS_IL,Southern Cross Energy,WA,6442,-31.1919033,121.6719012,,industrial_load,,,Commissioned
+TIWEST_COG1,TIWEST_COG1,Kwinana Tiwest Cogen,WA,6167,-32.2290511,115.7744109,42.1,gas_ocgt,,,Commissioned
+TESLA_GERALDTON_G1,TESLA_GERALDTON,Tesla Geraldton Power Station,WA,6532,-28.790815,114.691831,9.9,distillate,,,Commissioned
+TESLA_KEMERTON_G1,TESLA_KEMERTON,Tesla Kemerton Power Station,WA,6233,-33.211662,115.76057,9.9,distillate,,,Commissioned
+TESLA_PICTON_G1,TESLA_PICTON,Tesla Picton Power Station,WA,6229,-33.356646,115.72098,9.9,distillate,,,Commissioned
+TESLA_NORTHAM_G1,TESLA_NORTHAM,Tesla Northam Power Station,WA,6403,-31.642906,116.847503,9.9,distillate,,,Commissioned
+BRIDGETOWN_BIOMASS_PLANT,BRIDGETOWN_BIOMASS_PLANT,Manjimup Biomass Plant,WA,6258,-34.3331509,116.1085206,40,biomass,,,Commissioned
+WATERCORP_DSP_01,WATERCORP_DSP_01,Watercorp Demand Side Program,WA,6000,,,,dsm,,,
+WATERCORP_DSP_02,WATERCORP_DSP_02,Watercorp Demand Side Program,WA,6000,,,,dsm,,,
+WATERCORP_DSP_03,WATERCORP_DSP_03,Watercorp Demand Side Program,WA,6000,,,,dsm,,,
+WATERCORP_DSP_04,WATERCORP_DSP_04,Watercorp Demand Side Program,WA,6000,,,,dsm,,,
+PERTHENERGY_KWINANA_GT1,PERTHENERGY_KWINANA,Kwinana Swift Power Station,WA,6167,-32.223992,115.778516,116,gas_ocgt,distillate,,Commissioned
+HENDERSON_RENEWABLE_IG1,HENDERSON_RENEWABLE,Henderson Landfill Gas,WA,6166,-32.1640034,115.790695,3,gas_lfg,,,Commissioned
+BREMER_BAY_WF1,BREMER_BAY,Bremer Bay Wind Farm,WA,6338,-34.3990329,119.3893766,0.6,wind,,,Commissioned
+COCKBURN_CCG1,COCKBURN,Synergy Cockburn Power Station,WA,6165,-32.200134,115.773988,249.7,gas_ccgt,,,Commissioned
+COLLIE_G1,COLLIE,Collie Power Station,WA,6225,-33.341509,116.262185,318.3,black_coal,,,Commissioned
+KALBARRI_WF1,KALBARRI,Kalbarri Wind Farm,WA,6535,-27.8983027,114.1923536,1.6,wind,,,Commissioned
+KEMERTON_GT11,KEMERTON,Kemerton Power Station,WA,6233,-33.1635661,115.7811324,154.7,gas_ocgt,distillate,,Commissioned
+KEMERTON_GT12,KEMERTON,Kemerton Power Station,WA,6233,-33.1635661,115.7811324,154.7,gas_ocgt,distillate,,Commissioned
+KWINANA_GT1,KWINANA,Synergy Kwinana Power Station,WA,6165,-32.197245,115.775445,420,oil,black_coal,gas_ocgt,Retired
+KWINANA_GT2,KWINANA,Synergy Kwinana Power Station,WA,6165,-32.197245,115.775445,103.2,gas_ocgt,distillate,,Commissioned
+KWINANA_GT3,KWINANA,Synergy Kwinana Power Station,WA,6165,-32.197245,115.775445,103.2,gas_ocgt,distillate,,Commissioned
+MUJA_G5,MUJA,Muja Power Station,WA,6225,-33.445811,116.306655,195.8,black_coal,,,Commissioned
+MUJA_G6,MUJA,Muja Power Station,WA,6225,-33.445811,116.306655,193.6,black_coal,,,Commissioned
+MUJA_G7,MUJA,Muja Power Station,WA,6225,-33.445811,116.306655,212.6,black_coal,,,Commissioned
+MUJA_G8,MUJA,Muja Power Station,WA,6225,-33.445811,116.306655,212.6,black_coal,,,Commissioned
+MUNGARRA_GT1,MUNGARRA,Mungarra Power Station,WA,6630,-28.8878993,115.115999,39.5,gas_ocgt,,,Commissioned
+MUNGARRA_GT2,MUNGARRA,Mungarra Power Station,WA,6630,-28.8878993,115.115999,39.5,gas_ocgt,,,Commissioned
+MUNGARRA_GT3,MUNGARRA,Mungarra Power Station,WA,6630,-28.8878993,115.115999,38,gas_ocgt,,,Commissioned
+PINJAR_GT1,PINJAR,Pinjar Power Station,WA,6078,-31.5585449,115.8185124,38.5,gas_ocgt,distillate,,Commissioned
+PINJAR_GT10,PINJAR,Pinjar Power Station,WA,6078,-31.5585449,115.8185124,118.2,gas_ocgt,,,Commissioned
+PINJAR_GT11,PINJAR,Pinjar Power Station,WA,6078,-31.5585449,115.8185124,130,gas_ocgt,,,Commissioned
+PINJAR_GT2,PINJAR,Pinjar Power Station,WA,6078,-31.5585449,115.8185124,38.5,gas_ocgt,distillate,,Commissioned
+PINJAR_GT3,PINJAR,Pinjar Power Station,WA,6078,-31.5585449,115.8185124,39.3,gas_ocgt,distillate,,Commissioned
+PINJAR_GT4,PINJAR,Pinjar Power Station,WA,6078,-31.5585449,115.8185124,39.3,gas_ocgt,distillate,,Commissioned
+PINJAR_GT5,PINJAR,Pinjar Power Station,WA,6078,-31.5585449,115.8185124,39.3,gas_ocgt,distillate,,Commissioned
+PINJAR_GT7,PINJAR,Pinjar Power Station,WA,6078,-31.5585449,115.8185124,39.3,gas_ocgt,distillate,,Commissioned
+PINJAR_GT9,PINJAR,Pinjar Power Station,WA,6078,-31.5585449,115.8185124,118.2,gas_ocgt,,,Commissioned
+PPP_KCP_EG1,KWINANA,Synergy Kwinana Power Station,WA,6165,-32.197245,115.775445,85.7,gas_ocgt,,,Commissioned
+PPP_KCP_IL1,PPP_KCP_IL1,Synergy Industrial Load,WA,6165,,,,industrial_load,,,
+SYNERGY_DSP_01,SYNERGY_DSP_01,Synergy Demand Side Program,WA,6000,,,,dsm,,,
+SYNERGY_DSP_02,SYNERGY_DSP_02,Synergy Demand Side Program,WA,6000,,,,dsm,,,
+SYNERGY_DSP_03,SYNERGY_DSP_03,Synergy Demand Side Program,WA,6000,,,,dsm,,,
+SYNERGY_DSP_04,SYNERGY_DSP_04,Synergy Demand Side Program,WA,6000,,,,dsm,,,
+SYNERGY_DSP_05,SYNERGY_DSP_05,Synergy Demand Side Program,WA,6000,,,,dsm,,,
+SYNERGY_SIMCOA_IL4,SYNERGY_SIMCOA_IL4,Synergy Simcoa Industrial Load,WA,6233,-33.2190422,115.7460792,,dsm,,,Commissioned
+SYNERGY_TOWN_OF_KAMBALDA,SYNERGY_TOWN_OF_KAMBALDA,Synergy Town of Kambalda,WA,6442,-31.2015528,121.6537378,,dsm,,,Commissioned
+WEST_KALGOORLIE_GT2,WEST_KALGOORLIE,West Kalgoorlie Power Station,WA,6430,-30.7804027,121.4215191,41.2,distillate,gas_ocgt,,Commissioned
+WEST_KALGOORLIE_GT3,WEST_KALGOORLIE,West Kalgoorlie Power Station,WA,6430,-30.7804027,121.4215191,23.3,distillate,gas_ocgt,,Commissioned
