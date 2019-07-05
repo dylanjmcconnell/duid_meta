@@ -7,7 +7,7 @@ import shutil
 import pandas as pd
 import datetime
 import os
-from duid_meta import CONFIG, MODULE_DIR, mmsds_reader, display_names
+from duid_meta import CONFIG, MODULE_DIR, mmsds_reader, display_names, wa
 from sqlalchemy import create_engine
 
 aws_settings = CONFIG['aws_settings']
@@ -258,6 +258,19 @@ def upload_master_registry():
     nd=with_capacity(station_dict)
 
     file_upload(nd, client, keyname="facility_registry.json")
+
+def upload_master_registry_wa():
+    client = aws_client()
+    station_dict = load_station_dict()
+
+    nd=with_capacity(station_dict)
+
+    wa_d = wa.load_all()
+
+    x = {**nd, **wa_d}
+
+    file_upload(x, client, keyname="test_facility_registry.json")
+
 
 def aws_client():
     client = boto3.client('s3', 
