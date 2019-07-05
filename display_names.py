@@ -127,7 +127,22 @@ def display_names(x):
                           "Dalrymple North BESS" : "Dalrymple North",
                           "Moranbah Generation Project" : "Moranbah",
                           "Mount Emerald": "Mt Emerald",
-                          "Pt Stanvac" : "Port Stanvac"
+                          "Pt Stanvac" : "Port Stanvac",
+                          "Alcoa Wagerup": "Wagerup",
+                          "Mount Barker Community": "Mount Barker",
+                          "Southern Cross  (Kambalda)": "Kambalda",
+                          "Manjimup Biomass": "Manjimup",
+                          "Synergy Cockburn": "Cockburn",
+                          "Synergy Kwinana": "Kwinana",
+                          "Denmark Community": "Denmark",
+                          "Kwinana Tiwest Cogen": "Kwinana cogen",
+                          "Mirrabooka (Atlas)": "Mirrabooka",
+                          "Metro  Solar":"Metro",
+                          "Tesla Geraldton": "Geraldton diesel",
+                          "Tesla Kemerton": "Kemerton diesel",
+                          "Tesla Picton": "Picton diesel",
+                          "Tesla Northam": "Northam diesel",
+                          "Cleantech Bioenegy" : "Richgro"
                           }.items():
         if case  in  display_str: 
             display_str = replace
