@@ -482,7 +482,9 @@ def del_station_units(d):
                          'KAREEYA' : ['KARYNL1'],
                          'GEORGTWN' : ['GEORGTN2'],
                          'SNUG' : ['SNUG4'],
-                         'OSBORNE' : ["OSB01", "OSB02"]}
+                         'OSBORNE' : ["OSB01", "OSB02"],
+                         'VPGS':['VPGS'],
+                         'LNGS': ['LAVNORTH']}
 
     for station_id, unit_list in station_unit_dict.items():
         for unit in unit_list:
