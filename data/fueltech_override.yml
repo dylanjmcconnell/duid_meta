@@ -1,4 +1,4 @@
-gas_lfg:
+bioenergy_lfg:
   - AGLSITA1
   - KINCUM1
   - AGLNOW1
@@ -30,3 +30,23 @@ gas_lfg:
   - EDLRGNRD
   - WINGF2_1
   - BROADMDW
+  - PEDLER1
+  - HIGHBRY1
+  - AWABAREF
+  - TEATREE1
+
+bioenergy_bagasse:
+  - RPCG
+  - PIONEER
+  - INVICTA
+  - ICSM
+  - RACOMIL1
+  - RPCG
+  - VICMILL1
+  - BWTR1
+  - SUNCOAST
+
+bioenergy_wastewater:
+  - SHEP1
+  - BOLIVAR1
+  - TATURA01

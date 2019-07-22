@@ -330,7 +330,7 @@ def with_capacity(station_dict):
     return nd
 
 def station_cap_map(df_fuel_tech, station_dict):
-    for station_id, fuel_tech in  {"BERWICK": "gas_lfg", "COPTNHYD":"hydro", "EASTCRK2":"gas_lfg", "GLBWNHYD":"hydro", "LUCASHGT": "gas_lfg"}.items():
+    for station_id, fuel_tech in  {"BERWICK": "bioenergy_biogas", "COPTNHYD":"hydro", "EASTCRK2":"bioenergy_biogas", "GLBWNHYD":"hydro", "LUCASHGT": "bioenergy_biogas"}.items():
         dx=df_fuel_tech[df_fuel_tech.duid == station_id]
         station_dict[station_id]['duid_data'] = {station_id: {"fuel_tech": fuel_tech, "registered_capacity": dx.reg_cap.values[0] }}
 
@@ -584,15 +584,19 @@ def manual_station(d={}):
 def landfil_gas(sd):
     for station_id, station in sd.items():
         for duid, duid_data in station['duid_data'].items():
-            if duid in FUELTECH_OVERRIDE['gas_lfg']:
-                duid_data.update({'fuel_tech': "gas_lfg"})
+            if duid in FUELTECH_OVERRIDE['bioenergy_lfg']:
+                duid_data.update({'fuel_tech': "bioenergy_biogas"})
+            if duid in FUELTECH_OVERRIDE['bioenergy_bagasse']:
+                duid_data.update({'fuel_tech': "bioenergy_biomass"})
+            if duid in FUELTECH_OVERRIDE['bioenergy_wastewater']:
+                duid_data.update({'fuel_tech': "bioenergy_biogas"})
 
 def incorrect(sd):
     duids = ["BWTR1"]
     for station_id, station in sd.items():
         for duid, duid_data in station['duid_data'].items():
             if duid in duids:
-                duid_data.update({'fuel_tech': "biomass"})
+                duid_data.update({'fuel_tech': "bioenergy_biogas"})
 
 def wcmg_update(sd):
     duids = ["GLENNCRK",
