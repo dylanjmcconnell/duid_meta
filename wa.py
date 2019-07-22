@@ -22,6 +22,13 @@ def load_stations():
 def display(df):
     df['Display Name'] = df['Display Name'].apply(display_names.display_names)
 
+def remap_fueltech(df):
+    maps = {'gas_lfg': 'bioenergy_biogas',
+            'gas_biogas': 'bioenergy_biogas',
+            'biomass' : 'bioenergy_biomass'}
+    for a,b in maps.items():
+        df.loc[df['Fuel Tech']==a,"Fuel Tech"]=b
+
 def station_metadata(station_df):
     station_meta = station_df[['Station Name', 'Display Name', 'State']].drop_duplicates()
     if len(station_meta)>1:
@@ -71,9 +78,11 @@ def parse_station(station_df):
 def load_all():
     df = load_stations()
     display(df)
+    remap_fueltech(df)
     sd = {}
     for i,station_df in df.groupby(df['Display Name']):
         station_data = parse_station(station_df)
         sd[station_data['station_id']]=station_data
 
     return sd
+
