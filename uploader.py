@@ -268,6 +268,7 @@ def upload_master_registry_wa():
     wa_d = wa.load_all()
 
     x = {**nd, **wa_d}
+    return x
 
     file_upload(x, client, keyname="test_facility_registry.json")
 
