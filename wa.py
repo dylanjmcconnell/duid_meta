@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from duid_meta import CONFIG, MODULE_DIR, display_names
+import copy
 
 def load_participants():
     #http://wa.aemo.com.au/aemo/data/wa/infographic/participant.csv
@@ -83,6 +84,17 @@ def load_all():
     for i,station_df in df.groupby(df['Display Name']):
         station_data = parse_station(station_df)
         sd[station_data['station_id']]=station_data
+    
+    old_kwinana = copy.deepcopy(sd['KWINANA'])
+    old_kwinana['duid_data'] = {'KWINANA_C5': {'registered_capacity': 200.0, 'fuel_tech': 'black_coal'},
+                                'KWINANA_C6': {'registered_capacity': 200.0, 'fuel_tech': 'black_coal'}}
+    old_kwinana['status'] = {'state':"Decommissioned", 'date':'2015-04-01'}
+    sd['KWINANA_OLD'] = old_kwinana
+
+    old_kwinana['status'] = {'state':"Decommissioned", 'date':'2015-04-01'}
+
+    del(sd['KWINANA']['duid_data']['KWINANA_GT1'])
+    sd['KWINANA']['status']['state']="Commissioned"
 
     return sd
 
