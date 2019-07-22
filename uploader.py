@@ -307,6 +307,7 @@ def load_station_dict():
 
     d = missing_station_data(df_fuel_tech)
     station_dict.update(d)
+    station_dict["COOGAPWF"]['duid_data']['COOPGWF1']['registered_capacity'] =452
 
     for tech in ['solar', 'wind', 'black_coal', 'brown_coal', 'biomass', 'gas_recip', 'gas_ocgt', 'gas_ccgt', 'gas_steam', 'hydro','distillate', 'pumps','none', 'battery_discharging']:
         missing_loc(station_dict, tech=tech)
@@ -376,6 +377,7 @@ def fuel_tech_check(duid_data, tech):
         return False
 
 def find_missing_stations(df_fuel_tech):
+    #df_fuel_tech = select_meta()
     station_list = list(df_fuel_tech.station_name.unique())
     alias = load_alias_map()
     alias_set = set(alias["STATION_ALIAS"])
@@ -483,7 +485,9 @@ def del_station_units(d):
                          'KAREEYA' : ['KARYNL1'],
                          'GEORGTWN' : ['GEORGTN2'],
                          'SNUG' : ['SNUG4'],
-                         'OSBORNE' : ["OSB01", "OSB02"]}
+                         'OSBORNE' : ["OSB01", "OSB02"],
+                         'VPGS':['VPGS'],
+                         'LNGS': ['LAVNORTH']}
 
     for station_id, unit_list in station_unit_dict.items():
         for unit in unit_list:
@@ -513,6 +517,7 @@ def snowy(station_dict):
     station_dict["SNOWY2"]['region_id'] = "NSW1"
     station_dict["SNWYGJP2"]['duid_data'] = {"SNWYGJP2" : {'fuel_tech': 'pumps', 'registered_capacity': 70.0}}
     station_dict["BLOWER"]['duid_data'] = {"BLOWERNG" : {'fuel_tech': 'hydro', 'registered_capacity': 70.0}}
+
     del(station_dict["SNOWY2"]['duid_data']['SNOWY2'])
     del(station_dict["SNOWY3"]['duid_data']['SNOWY3'])
     del(station_dict["SNOWY6"]['duid_data']['SNOWY6'])
