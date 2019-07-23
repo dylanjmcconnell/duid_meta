@@ -91,10 +91,19 @@ def load_all():
     old_kwinana['status'] = {'state':"Decommissioned", 'date':'2015-04-01'}
     sd['KWINANA_OLD'] = old_kwinana
 
-    old_kwinana['status'] = {'state':"Decommissioned", 'date':'2015-04-01'}
-
     del(sd['KWINANA']['duid_data']['KWINANA_GT1'])
     sd['KWINANA']['status']['state']="Commissioned"
 
-    return sd
+    muja_ab = copy.deepcopy(sd['MUJA'])
 
+
+    muja_ab['duid_data'] = {'MUJA_M1': {'registered_capacity': 60.0, 'fuel_tech': 'black_coal'},
+                            'MUJA_M2': {'registered_capacity': 60.0, 'fuel_tech': 'black_coal'},
+                            'MUJA_M3': {'registered_capacity': 60.0, 'fuel_tech': 'black_coal'},
+                            'MUJA_M4': {'registered_capacity': 60.0, 'fuel_tech': 'black_coal'}}
+    muja_ab['status'] = {'state':"Decommissioned", 'date':'2017-05-01'}
+    sd['MUJA_AB'] = muja_ab
+    sd['MUJA_AB']['display_name'] = 'Muja AB'
+    
+    sd['MUJA']['display_name'] = 'Muja CD'
+    return sd
