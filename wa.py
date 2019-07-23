@@ -106,4 +106,8 @@ def load_all():
     sd['MUJA_AB']['display_name'] = 'Muja AB'
     
     sd['MUJA']['display_name'] = 'Muja CD'
+
+    sd['GOSNELLS']['duid_data']['GOSNELLS']['registered_capacity'] = 1.0
+    sd['ATLAS']['duid_data']['ATLAS']['registered_capacity'] = 1.23
+    
     return sd

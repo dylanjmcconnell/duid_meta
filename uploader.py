@@ -269,7 +269,7 @@ def upload_master_registry_wa():
 
     x = {**nd, **wa_d}
 
-    file_upload(x, client, keyname="test_facility_registry.json")
+    file_upload(x, client, keyname="facility_registry.json")
 
     return x
 
