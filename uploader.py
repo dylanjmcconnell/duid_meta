@@ -224,7 +224,7 @@ def load_genunits(stationid="BAYSW", engine=SQLITE):
     return pd.read_sql(sql.format(stationid), con=engine, index_col = "GENSETID")
 
 def select_meta(engine=legacy):
-    #df_fuel_tech?
+    #df_fuel_tech
     sql = "SELECT F.DUID as duid, F.STATION_NAME as station_name, F.REGIONID as regionid, FT.openNEM_keys as fuel_tech, "\
           "F.REG_CAP as reg_cap, NT.FIRST_RUN as first_run FROM nemweb_meta.FULL_REGISTER F "\
           "LEFT JOIN nemweb_meta.FUEL_TECHS FT "\
@@ -271,7 +271,6 @@ def upload_master_registry_wa():
 
     file_upload(x, client, keyname="facility_registry.json")
 
-    return x
 
 
 def aws_client():
