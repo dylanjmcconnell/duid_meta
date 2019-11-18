@@ -21,11 +21,11 @@ datasets = {'dudetail'       :    {'link' :   'PUBLIC_DVD_DUDETAIL_{0}{1:02d}010
             'stationowner'   :    {'link' :   'PUBLIC_DVD_STATIONOWNER_{0}{1:02d}010000.zip',
                                    'table':   'PARTICIPANT_REGISTRATION_STATIONOWNER'}}
 
-def url_generator(dataset='dudetail', y=2019, m=2):
+def url_generator(dataset='dudetail', y=2019, m=9):
     link = base_url+datasets[dataset]['link']
     return link.format(y,m)
 
-def download(dataset='dudetail', y=2019,m=2):
+def download(dataset='dudetail', y=2019,m=9):
     """Dowloads nemweb zipfile from link into memory as a byteIO object.
     nemfile object is returned from the byteIO object """
     link = url_generator(dataset=dataset, y=y, m=m)
