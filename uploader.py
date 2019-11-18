@@ -162,7 +162,6 @@ def load_station(df_fuel_tech, stationid="BAYSW", engine=SQLITE):
                 station_dict['duid_data'][duid].update({"fuel_tech": duid_ft.fuel_tech.values[-1],
                                                         "registered_capacity": dx.reg_cap.sum()})
 
-
     for genset, data in genset_data.iterrows():
         if genset in station_dict['duid_data']:
             if genset != "MTGELWF1":
@@ -308,7 +307,8 @@ def load_station_dict():
 
     d = missing_station_data(df_fuel_tech)
     station_dict.update(d)
-    station_dict["COOGAPWF"]['duid_data']['COOPGWF1']['registered_capacity'] =452
+
+    station_dict["COOPGWF"]['duid_data']['COOPGWF1']['registered_capacity'] = 452
 
     for tech in ['solar', 'wind', 'black_coal', 'brown_coal', 'biomass', 'gas_recip', 'gas_ocgt', 'gas_ccgt', 'gas_steam', 'hydro','distillate', 'pumps','none', 'battery_discharging']:
         missing_loc(station_dict, tech=tech)
@@ -382,6 +382,7 @@ def find_missing_stations(df_fuel_tech):
     station_list = list(df_fuel_tech.station_name.unique())
     alias = load_alias_map()
     alias_set = set(alias["STATION_ALIAS"])
+
 
     mms_stations = load_all_stations()
     mms_set = set(mms_stations['STATIONNAME'])
