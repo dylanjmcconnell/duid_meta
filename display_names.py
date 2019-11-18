@@ -50,7 +50,7 @@ def display_names(x):
                           "Sa ": "SA ",
                           "Hrl": "HRL",
                           "Krc": "KRC" ,
-                          "Scsf": "SCSF",
+                          "Scsf": "Sunshine Coast",
                           "Renewable Energy": "RE Facility",
                           "Battery Energy Storage System" : "Battery",
                           "Energy Storage System": "Battery",
@@ -142,7 +142,10 @@ def display_names(x):
                           "Tesla Kemerton": "Kemerton diesel",
                           "Tesla Picton": "Picton diesel",
                           "Tesla Northam": "Northam diesel",
-                          "Cleantech Bioenegy" : "Richgro"
+                          "Cleantech Bioenegy" : "Richgro",
+                          "Haughton  1, Units 1-81" : "Haughton",
+                          "Finely": "Finley",
+                          "Tableland Mill Unit 2": "Tableland Mill"
                           }.items():
         if case  in  display_str: 
             display_str = replace
