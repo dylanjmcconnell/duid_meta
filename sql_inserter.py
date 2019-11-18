@@ -38,7 +38,7 @@ def populate_stations(engine=SQLITE):
     state_keys = pd.read_sql("SELECT STATE as _KEY, ID FROM STATE UNION SELECT STATENAME as _KEY, ID FROM STATE", con=engine, index_col="_KEY")
     key_map = state_keys.to_dict(orient='dict')['ID']
 
-    df = mmsds_reader.download(dataset="station", y=2019, m=2)
+    df = mmsds_reader.download(dataset="station", y=2019, m=9)
     df.STATE = df.STATE.apply(lambda x: key_map[x])
     for string in ['COOMA', 'BRISBANE', 'ADELAIDE', 'PORTLAND']:
         df.loc[df.POSTCODE==string, "POSTCODE"] = pd.np.nan
@@ -55,7 +55,7 @@ def populate_stations(engine=SQLITE):
 def populate_participants(engine=SQLITE):
     key_map = key_mapper("PARTICIPANTCLASS", engine=engine)    
 
-    df = mmsds_reader.download(dataset="participant", y=2019, m=2)
+    df = mmsds_reader.download(dataset="participant", y=2019, m=9)
     df.PARTICIPANTCLASSID = df.PARTICIPANTCLASSID.apply(lambda x: key_map[x])
     dx = df[['PARTICIPANTID', 'PARTICIPANTCLASSID', 'NAME']]
     dx.to_sql("PARTICIPANT", con=engine, index=False, if_exists='append')
@@ -109,7 +109,7 @@ def populate_substance_ids(engine=SQLITE):
     df.to_sql("SUBSTANCE", con=engine, index=False, if_exists='append')
 
 def populate_dudetailsummary(engine=SQLITE):
-    df = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=2)
+    df = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=9)
     cols = ['DUID',  'REGIONID', 'STATIONID', 'PARTICIPANTID', 'CONNECTIONPOINTID', 
             'DISPATCHTYPE', 'SCHEDULE_TYPE', 'STARTTYPE',  
             'TRANSMISSIONLOSSFACTOR', 'DISTRIBUTIONLOSSFACTOR', 
@@ -134,7 +134,7 @@ def populate_dudetailsummary(engine=SQLITE):
     df[cols].to_sql("DUDETAILSUMMARY", con=engine, index=False, if_exists='append')
 
 def populate_genunits(engine=SQLITE):
-    df = mmsds_reader.download(dataset="genunits", y=2019, m=2)
+    df = mmsds_reader.download(dataset="genunits", y=2019, m=9)
     cols = ['GENSETID', 'STATIONID', 'CDINDICATOR', 'AGCFLAG', 'SPINNINGFLAG',
             'VOLTLEVEL', 'REGISTEREDCAPACITY', 'STARTTYPE',
             'MKTGENERATORIND', 'NORMALSTATUS', 'MAXCAPACITY', 'GENSETTYPE',
@@ -202,7 +202,7 @@ def nan_parse(id_key_map, x):
         return x
 
 def populate_duid_table(engine=SQLITE):
-    df_ds = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=2)
+    df_ds = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=9)
 
     #all duids
     duid_key_map = key_mapper("FULL_REGISTER", "DUID", engine=legacy) 
@@ -220,7 +220,7 @@ def populate_duid_table(engine=SQLITE):
 
 def populate_genset_table(engine=SQLITE):
     # could be added to genunit create
-    df_g = mmsds_reader.download(dataset="genunits", y=2019, m=2)
+    df_g = mmsds_reader.download(dataset="genunits", y=2019, m=9)
 
     #all duids 
     duid_key_map = key_mapper("FULL_REGISTER", "DUID", engine=legacy) 
