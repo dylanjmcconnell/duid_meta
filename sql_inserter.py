@@ -34,11 +34,11 @@ def populate_states(engine=SQLITE):
     df.REGIONID = df.REGIONID.apply(lambda x: key_map[x])
     df.to_sql("STATE", con=engine, index=False, if_exists='append')
 
-def populate_stations(engine=SQLITE):
+def populate_stations(engine=SQLITE, y=2019, m=9):
     state_keys = pd.read_sql("SELECT STATE as _KEY, ID FROM STATE UNION SELECT STATENAME as _KEY, ID FROM STATE", con=engine, index_col="_KEY")
     key_map = state_keys.to_dict(orient='dict')['ID']
 
-    df = mmsds_reader.download(dataset="station", y=2019, m=9)
+    df = mmsds_reader.download(dataset="station", y=y, m=m)
     df.STATE = df.STATE.apply(lambda x: key_map[x])
     for string in ['COOMA', 'BRISBANE', 'ADELAIDE', 'PORTLAND']:
         df.loc[df.POSTCODE==string, "POSTCODE"] = pd.np.nan
@@ -52,16 +52,16 @@ def populate_stations(engine=SQLITE):
     df_comb = dx.merge(df_latlon, on="STATIONID", how="left")
     df_comb.to_sql("STATION", con=engine, index=False, if_exists='append')
 
-def populate_participants(engine=SQLITE):
-    key_map = key_mapper("PARTICIPANTCLASS", engine=engine)    
+def populate_participants(engine=SQLITE, y=2019, m=9):
+    key_map = key_mapper("PARTICIPANTCLASS", engine=engine)
 
-    df = mmsds_reader.download(dataset="participant", y=2019, m=9)
+    df = mmsds_reader.download(dataset="participant", y=y, m=m)
     df.PARTICIPANTCLASSID = df.PARTICIPANTCLASSID.apply(lambda x: key_map[x])
     dx = df[['PARTICIPANTID', 'PARTICIPANTCLASSID', 'NAME']]
     dx.to_sql("PARTICIPANT", con=engine, index=False, if_exists='append')
 
-def populate_connection_points(engine=SQLITE):
-    df = mmsds_reader.download(dataset="dudetail")
+def populate_connection_points(engine=SQLITE, y=2019, m=9):
+    df = mmsds_reader.download(dataset="dudetail", y=y, m=m)
     df_conn = df.CONNECTIONPOINTID.copy().drop_duplicates()
     df_conn.sort_values(inplace=True)
     df_conn.to_sql("CONNECTIONPOINT", con=engine, index=False, if_exists='append')
@@ -85,7 +85,8 @@ def populate_simple_tables(engine=SQLITE):
               "CO2E_DATA_SOURCE" :   ['NTNDP 2011', 'NTNDP 2014', 'NTNDP 2016', pd.np.nan,
                                      'Estimate - NGA 2016', 'Estimate - NGA 2015', 'Estimated',
                                      'Estimate - Other', 'Estimate - NGA 2012', 'Estimate - NGA 2014',
-                                     'Estimate - NGA 2011', 'NTNDP 2015', 'Estimate - NGA 2013']}
+                                     'Estimate - NGA 2011', 'NTNDP 2015', 'Estimate - NGA 2013', 'NGA 2018',
+                                     'ISP 2018', 'On Exclusion List', 'Excluded NMNS']}
 
     for table in tables:
         df = pd.DataFrame(tables[table], columns = [table])
@@ -108,8 +109,8 @@ def populate_substance_ids(engine=SQLITE):
     df.rename(columns = {"substance_id" : "ID", "substance_name" : "SUBSTANCE_NAME"}, inplace=True)
     df.to_sql("SUBSTANCE", con=engine, index=False, if_exists='append')
 
-def populate_dudetailsummary(engine=SQLITE):
-    df = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=9)
+def populate_dudetailsummary(engine=SQLITE, y=2019, m=9):
+    df = mmsds_reader.download(dataset="dudetailsummary", y=y, m=m)
     cols = ['DUID',  'REGIONID', 'STATIONID', 'PARTICIPANTID', 'CONNECTIONPOINTID', 
             'DISPATCHTYPE', 'SCHEDULE_TYPE', 'STARTTYPE',  
             'TRANSMISSIONLOSSFACTOR', 'DISTRIBUTIONLOSSFACTOR', 
@@ -133,8 +134,8 @@ def populate_dudetailsummary(engine=SQLITE):
     df['STARTTYPE'] = df['STARTTYPE'].apply(lambda x: nan_parse(id_key_map, x))
     df[cols].to_sql("DUDETAILSUMMARY", con=engine, index=False, if_exists='append')
 
-def populate_genunits(engine=SQLITE):
-    df = mmsds_reader.download(dataset="genunits", y=2019, m=9)
+def populate_genunits(engine=SQLITE, y=2019, m=9):
+    df = mmsds_reader.download(dataset="genunits", y=y, m=m)
     cols = ['GENSETID', 'STATIONID', 'CDINDICATOR', 'AGCFLAG', 'SPINNINGFLAG',
             'VOLTLEVEL', 'REGISTEREDCAPACITY', 'STARTTYPE',
             'MKTGENERATORIND', 'NORMALSTATUS', 'MAXCAPACITY', 'GENSETTYPE',
@@ -201,8 +202,8 @@ def nan_parse(id_key_map, x):
     except:
         return x
 
-def populate_duid_table(engine=SQLITE):
-    df_ds = mmsds_reader.download(dataset="dudetailsummary", y=2019, m=9)
+def populate_duid_table(engine=SQLITE, y=2019, m=9):
+    df_ds = mmsds_reader.download(dataset="dudetailsummary", y=y, m=m)
 
     #all duids
     duid_key_map = key_mapper("FULL_REGISTER", "DUID", engine=legacy) 
@@ -218,9 +219,9 @@ def populate_duid_table(engine=SQLITE):
     db = unique_duids[unique_duids.ID.isna()]
     db.to_sql("DU", con=engine, if_exists='append', index=None) 
 
-def populate_genset_table(engine=SQLITE):
+def populate_genset_table(engine=SQLITE, y=2019, m=9):
     # could be added to genunit create
-    df_g = mmsds_reader.download(dataset="genunits", y=2019, m=9)
+    df_g = mmsds_reader.download(dataset="genunits", y=y, m=m)
 
     #all duids 
     duid_key_map = key_mapper("FULL_REGISTER", "DUID", engine=legacy) 
@@ -241,8 +242,8 @@ def duid_parse(id_key_map, x):
     except:
         return pd.np.nan
 
-def populate_operating_status(engine=SQLITE):
-    df_os = mmsds_reader.download(dataset='operatingstatus')
+def populate_operating_status(engine=SQLITE, y=2019, m=9):
+    df_os = mmsds_reader.download(dataset='operatingstatus', y=y, m=m)
     station_key_map = key_mapper("STATION", "STATIONID") 
     df_os['STATIONID'] = df_os.STATIONID.apply(lambda x: station_key_map[x])
 
@@ -251,17 +252,17 @@ def populate_operating_status(engine=SQLITE):
 
     df_os[['STATIONID', 'STATUS', 'EFFECTIVEDATE']].to_sql("STATIONOPERATINGSTATUS", con=engine, if_exists='append', index=None) 
 
-def make_all(engine=SQLITE):
+def make_all(engine=SQLITE, y=2019, m=11):
     populate_simple_tables(engine=engine)
     populate_regions(engine=engine)
     populate_states(engine=engine)
-    populate_connection_points(engine=engine)
-    populate_participants(engine=engine)
-    populate_stations(engine=engine)
-    populate_duid_table(engine=engine)
-    populate_dudetailsummary(engine=engine)
-    populate_genset_table(engine=engine)
-    populate_genunits(engine=engine)
-    populate_operating_status(engine=engine)
+    populate_connection_points(engine=engine, y=y,m=m)
+    populate_participants(engine=engine, y=y,m=m)
+    populate_stations(engine=engine, y=y,m=m)
+    populate_duid_table(engine=engine, y=y,m=m)
+    populate_dudetailsummary(engine=engine, y=y,m=m)
+    populate_genset_table(engine=engine, y=y,m=m)
+    populate_genunits(engine=engine, y=y,m=m)
+    populate_operating_status(engine=engine, y=y,m=m)
     populate_station_alias(engine=engine)
     populate_substance_ids(engine=engine)
