@@ -96,7 +96,7 @@ def populate_simple_tables(engine=SQLITE):
     df.to_sql("PARTICIPANTCLASS", con=engine, index=False, if_exists='append')
 
 def populate_station_alias(engine=SQLITE):
-    id_key_map = key_mapper("STATION", "STATIONID")    
+    id_key_map = key_mapper("STATION", "STATIONID", engine=engine)
     path = os.path.join(MODULE_DIR, "data","station_alias.csv")
     df = pd.read_csv(path)
     df.STATIONID = df.STATIONID.apply(lambda x: id_key_map[x])
@@ -127,10 +127,10 @@ def populate_dudetailsummary(engine=SQLITE, y=2019, m=9):
                             "DISPATCHTYPE": "DISPATCHTYPE",
                             "SCHEDULE_TYPE": "SCHEDULE_TYPE",
                             "DU": "DUID"}.items():
-        id_key_map = key_mapper(id_table, column)    
+        id_key_map = key_mapper(id_table, column, engine=engine)
         df[column] = df[column].apply(lambda x: id_key_map[x])    
 
-    id_key_map = key_mapper("STARTTYPE", "STARTTYPE")
+    id_key_map = key_mapper("STARTTYPE", "STARTTYPE", engine=engine)
     df['STARTTYPE'] = df['STARTTYPE'].apply(lambda x: nan_parse(id_key_map, x))
     df[cols].to_sql("DUDETAILSUMMARY", con=engine, index=False, if_exists='append')
 
@@ -143,7 +143,7 @@ def populate_genunits(engine=SQLITE, y=2019, m=9):
             'CO2E_ENERGY_SOURCE', 'CO2E_DATA_SOURCE']
 
     df = df[~df.GENSETID.isin(["GE01","GE03","GK03","GE04","GE02","GK04","GH01","GH02","GK01","GK02"])]
-    gen_unit_map(df)
+    gen_unit_map(df, engine=engine)
 
     for col in ['LASTCHANGED']:
         df[col] = df[col].apply(lambda x: date_parse(x))
@@ -151,20 +151,20 @@ def populate_genunits(engine=SQLITE, y=2019, m=9):
     for col in ['CDINDICATOR', 'AGCFLAG', 'SPINNINGFLAG', 'MKTGENERATORIND', 'NORMALSTATUS']:
         df[col] = df[col].apply(lambda x: True if x == "Y" else False)
 
-    id_key_map = key_mapper("DISPATCHTYPE", "DISPATCHTYPE")    
-    df["GENSETTYPE"] = df["GENSETTYPE"].apply(lambda x: id_key_map[x])    
+    id_key_map = key_mapper("DISPATCHTYPE", "DISPATCHTYPE", engine=engine)
+    df["GENSETTYPE"] = df["GENSETTYPE"].apply(lambda x: id_key_map[x])
 
-    id_key_map = key_mapper("GENSET", "GENSETID")    
+    id_key_map = key_mapper("GENSET", "GENSETID", engine=engine)
     df["GENSETID"] = df["GENSETID"].apply(lambda x: id_key_map[x])
 
 
-    id_key_map = key_mapper("STATION", "STATIONID")
+    id_key_map = key_mapper("STATION", "STATIONID", engine=engine)
     df["STATIONID"] = df["STATIONID"].apply(lambda x: id_key_map[x])
 
     for id_table, column in {"CO2E_ENERGY_SOURCE": "CO2E_ENERGY_SOURCE",
                              "CO2E_DATA_SOURCE": "CO2E_DATA_SOURCE",
                              "STARTTYPE": "STARTTYPE"}.items():
-        id_key_map = key_mapper(id_table, column)    
+        id_key_map = key_mapper(id_table, column, engine=engine)
         df[column] = df[column].apply(lambda x: nan_parse(id_key_map,x))
 
     df[cols].to_sql("GENUNITS", con=engine, index=False, if_exists='append')
@@ -244,10 +244,10 @@ def duid_parse(id_key_map, x):
 
 def populate_operating_status(engine=SQLITE, y=2019, m=9):
     df_os = mmsds_reader.download(dataset='operatingstatus', y=y, m=m)
-    station_key_map = key_mapper("STATION", "STATIONID") 
+    station_key_map = key_mapper("STATION", "STATIONID", engine=engine)
     df_os['STATIONID'] = df_os.STATIONID.apply(lambda x: station_key_map[x])
 
-    status_key_map = key_mapper("STATUS", "STATUS") 
+    status_key_map = key_mapper("STATUS", "STATUS", engine=engine)
     df_os['STATUS'] = df_os['STATUS'].apply(lambda x: status_key_map[x])
 
     df_os[['STATIONID', 'STATUS', 'EFFECTIVEDATE']].to_sql("STATIONOPERATINGSTATUS", con=engine, if_exists='append', index=None) 
@@ -265,4 +265,4 @@ def make_all(engine=SQLITE, y=2019, m=11):
     populate_genunits(engine=engine, y=y,m=m)
     populate_operating_status(engine=engine, y=y,m=m)
     populate_station_alias(engine=engine)
-    populate_substance_ids(engine=engine)
+    #populate_substance_ids(engine=engine)
